@@ -6,6 +6,7 @@
     <title>Axon Systems - Revolutionizing Workflows</title>
     <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='images/logo.jpg') }}">
     <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
@@ -45,12 +46,20 @@
             <div class="glow glow-cyan"></div>
             <div class="glow glow-magenta"></div>
             <div class="grid-overlay"></div>
+        <div class="hero-faces-container">
+            <img src="{{ url_for('static', filename='images/hero_faces.png') }}" alt="AI Core Faces">
         </div>
+
         <div class="hero-content">
             <h1 class="hero-title pt-1 gs-reveal">REVOLUTIONIZING</h1>
             <h1 class="hero-title pt-2 outline-text gs-reveal">WORKFLOWS</h1>
             <h1 class="hero-title pt-3 gs-reveal">WITH AI AGENTS</h1>
             <p class="hero-desc gs-reveal">Automate your complex business logic with autonomous intelligence.</p>
+        </div>
+        
+        <div class="hero-faces-front">
+            <!-- Smooth pop layer -->
+            <img src="{{ url_for('static', filename='images/hero_faces.png') }}" alt="AI Core Faces Hover">
         </div>
         <div class="floating-node">💠</div>
     </section>
@@ -93,7 +102,7 @@
                         <div class="card-icon">🧠</div>
                         <h3>AI Automations</h3>
                         <p>Autonomous AI agents capable of reasoning, acting, and evolving workflows.</p>
-                        <a href="#" class="btn-outline">Learn More</a>
+                        
                     </div>
                 </div>
                 <!-- Card 2 -->
@@ -103,7 +112,7 @@
                         <div class="card-icon">💻</div>
                         <h3>Software Dev</h3>
                         <p>High-performance, scalable custom software solutions for modern enterprises.</p>
-                        <a href="#" class="btn-outline">Learn More</a>
+                        
                     </div>
                 </div>
                 <!-- Card 3 -->
@@ -113,7 +122,7 @@
                         <div class="card-icon">📱</div>
                         <h3>App Development</h3>
                         <p>Pixel-perfect, highly responsive mobile applications for iOS and Android.</p>
-                        <a href="#" class="btn-outline">Learn More</a>
+                        
                     </div>
                 </div>
                 <!-- Card 4 -->
@@ -123,7 +132,7 @@
                         <div class="card-icon">🛍️</div>
                         <h3>E-Commerce</h3>
                         <p>Conversion-optimized modular digital storefronts with secure checkouts.</p>
-                        <a href="#" class="btn-outline">Learn More</a>
+                        
                     </div>
                 </div>
                 <!-- Card 5 -->
@@ -133,7 +142,7 @@
                         <div class="card-icon">💬</div>
                         <h3>WhatsApp Bot</h3>
                         <p>24/7 intelligent conversational agents engineered for WhatsApp API.</p>
-                        <a href="#" class="btn-outline">Learn More</a>
+                        
                     </div>
                 </div>
                 <!-- Card 6 -->
@@ -143,7 +152,7 @@
                         <div class="card-icon">📊</div>
                         <h3>Analytics</h3>
                         <p>Transform raw enterprise data into actionable insights through models.</p>
-                        <a href="#" class="btn-outline">Learn More</a>
+                        
                     </div>
                 </div>
                 <!-- Card 7 -->
@@ -153,7 +162,7 @@
                         <div class="card-icon">💳</div>
                         <h3>POS Systems</h3>
                         <p>Secure, lightning-fast integrated POS solutions enabling robust control.</p>
-                        <a href="#" class="btn-outline">Learn More</a>
+                        
                     </div>
                 </div>
                 <!-- Card 8 -->
@@ -163,7 +172,7 @@
                         <div class="card-icon">☁️</div>
                         <h3>Cloud DevOps</h3>
                         <p>Scalable cloud infrastructure provisioning and automated deployment lines.</p>
-                        <a href="#" class="btn-outline">Learn More</a>
+                        
                     </div>
                 </div>
             </div>
@@ -428,21 +437,21 @@
             <div class="footer-col contact-col">
                 <h4>Contact Info</h4>
                 <div class="contact-item">
-                    <span class="icon">📞</span>
+                    <span class="icon"><i class="fas fa-phone-alt"></i></span>
                     <div class="contact-text">
                         <strong>Phone</strong>
                         <span>(+92) 317-1055425</span>
                     </div>
                 </div>
                 <div class="contact-item">
-                    <span class="icon">✉️</span>
+                    <span class="icon"><i class="fas fa-envelope"></i></span>
                     <div class="contact-text">
                         <strong>Email</strong>
                         <span>info@axonsystems.com</span>
                     </div>
                 </div>
                 <div class="contact-item">
-                    <span class="icon">📍</span>
+                    <span class="icon"><i class="fas fa-map-marker-alt"></i></span>
                     <div class="contact-text">
                         <strong>Address</strong>
                         <span>Gulshan-e-Iqbal, Karachi</span>
@@ -466,6 +475,17 @@
                     <div class="input-group">
                         <input type="email" placeholder="Join our premier newsletter">
                         <button class="nav-btn">Subscribe</button>
+                    </div>
+                </div>
+
+                <div class="social-links mt-3">
+                    <h4>Follow Us</h4>
+                    <div class="social-icons">
+                        <a href="https://facebook.com" target="_blank" class="social-fb"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://instagram.com" target="_blank" class="social-ig"><i class="fab fa-instagram"></i></a>
+                        <a href="https://linkedin.com" target="_blank" class="social-in"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://youtube.com" target="_blank" class="social-yt"><i class="fab fa-youtube"></i></a>
+                        <a href="https://tiktok.com" target="_blank" class="social-tk"><i class="fab fa-tiktok"></i></a>
                     </div>
                 </div>
                 

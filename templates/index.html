@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axon Systems - Revolutionizing Workflows</title>
+    <link rel="icon" type="image/jpeg" href="{{ url_for('static', filename='images/logo.jpg') }}">
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700;800&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <!-- Scroll Progress Bar -->
+    <div id="progress-bar"></div>
+
+    <div id="cursor-glow"></div>
+
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Axon Systems Logo" class="brand-logo-img">
+            <div class="logo-text">
+                <span class="text-top">AXON</span>
+                <span class="text-bottom">SYSTEMS</span>
+            </div>
+        </div>
+        <ul class="nav-links">
+            <li><a href="#home" class="active">Home</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#case">Case Study</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#about">About Us</a></li>
+        </ul>
+        <div style="display: flex; align-items: center; gap: 20px;">
+            <button class="nav-btn btn-contact" onclick="openContactModal(event)">Contact Us</button>
+            <div class="hamburger" id="hamburger">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-bg">
+            <div id="particles-js"></div>
+            <div class="glow glow-cyan"></div>
+            <div class="glow glow-magenta"></div>
+            <div class="grid-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title pt-1 gs-reveal">REVOLUTIONIZING</h1>
+            <h1 class="hero-title pt-2 outline-text gs-reveal">WORKFLOWS</h1>
+            <h1 class="hero-title pt-3 gs-reveal">WITH AI AGENTS</h1>
+            <p class="hero-desc gs-reveal">Automate your complex business logic with autonomous intelligence.</p>
+        </div>
+        <div class="floating-node">💠</div>
+    </section>
+
+    <!-- Stats Bar Section -->
+    <section class="stats-section gs-reveal">
+        <div class="container stats-bar">
+            <div class="stat-item">
+                <h2>05+</h2>
+                <p>Years of Experience</p>
+            </div>
+            <div class="stat-item">
+                <h2>50+</h2>
+                <p>Projects Completed</p>
+            </div>
+            <div class="stat-item">
+                <h2>40+</h2>
+                <p>Satisfied Customers</p>
+            </div>
+            <div class="stat-item">
+                <h2>02</h2>
+                <p>Countries: Pakistan & Canada</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section id="services" class="services">
+        <div class="container">
+            <div class="section-header gs-reveal">
+                <span class="tag">SERVICES</span>
+                <h2 class="section-title">WHAT WE BUILD</h2>
+            </div>
+            
+            <div class="services-grid">
+                <!-- Card 1 -->
+                <div class="service-card gs-reveal">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-icon">🧠</div>
+                        <h3>AI Automations</h3>
+                        <p>Autonomous AI agents capable of reasoning, acting, and evolving workflows.</p>
+                        <a href="#" class="btn-outline">Learn More</a>
+                    </div>
+                </div>
+                <!-- Card 2 -->
+                <div class="service-card gs-reveal">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-icon">💻</div>
+                        <h3>Software Dev</h3>
+                        <p>High-performance, scalable custom software solutions for modern enterprises.</p>
+                        <a href="#" class="btn-outline">Learn More</a>
+                    </div>
+                </div>
+                <!-- Card 3 -->
+                <div class="service-card gs-reveal">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-icon">📱</div>
+                        <h3>App Development</h3>
+                        <p>Pixel-perfect, highly responsive mobile applications for iOS and Android.</p>
+                        <a href="#" class="btn-outline">Learn More</a>
+                    </div>
+                </div>
+                <!-- Card 4 -->
+                <div class="service-card gs-reveal">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-icon">🛍️</div>
+                        <h3>E-Commerce</h3>
+                        <p>Conversion-optimized modular digital storefronts with secure checkouts.</p>
+                        <a href="#" class="btn-outline">Learn More</a>
+                    </div>
+                </div>
+                <!-- Card 5 -->
+                <div class="service-card gs-reveal">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-icon">💬</div>
+                        <h3>WhatsApp Bot</h3>
+                        <p>24/7 intelligent conversational agents engineered for WhatsApp API.</p>
+                        <a href="#" class="btn-outline">Learn More</a>
+                    </div>
+                </div>
+                <!-- Card 6 -->
+                <div class="service-card gs-reveal">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-icon">📊</div>
+                        <h3>Analytics</h3>
+                        <p>Transform raw enterprise data into actionable insights through models.</p>
+                        <a href="#" class="btn-outline">Learn More</a>
+                    </div>
+                </div>
+                <!-- Card 7 -->
+                <div class="service-card gs-reveal">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-icon">💳</div>
+                        <h3>POS Systems</h3>
+                        <p>Secure, lightning-fast integrated POS solutions enabling robust control.</p>
+                        <a href="#" class="btn-outline">Learn More</a>
+                    </div>
+                </div>
+                <!-- Card 8 -->
+                <div class="service-card gs-reveal">
+                    <div class="card-glow"></div>
+                    <div class="card-content">
+                        <div class="card-icon">☁️</div>
+                        <h3>Cloud DevOps</h3>
+                        <p>Scalable cloud infrastructure provisioning and automated deployment lines.</p>
+                        <a href="#" class="btn-outline">Learn More</a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Agile Process Timeline (From Idea to Execution) -->
+            <div class="agile-wrapper gs-reveal" style="margin-top: 150px; position:relative;">
+                <div class="section-header" style="margin-bottom: 50px;">
+                    <h2 class="section-title" style="font-size: 2.8rem; text-transform: none;">From Idea to Execution</h2>
+                    <p style="color:#ffcccc; font-size: 1.15rem; margin-top:5px;">100+ Projects Perfected with Agile</p>
+                </div>
+                
+                <svg id="agileSvgContainer" class="agile-svg" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none;"></svg>
+
+                <div class="agile-row">
+                    <div class="agile-step" id="agile1">
+                        <div class="step-circle">
+                            <span class="step-num">Step-1</span>
+                            <span class="step-icon">💡</span>
+                            <h4>Discover</h4>
+                            <p>We begin to align with your goals, ensuring absolute clarity.</p>
+                        </div>
+                    </div>
+                    <div class="agile-step" id="agile2">
+                        <div class="step-circle">
+                            <span class="step-num">Step-2</span>
+                            <span class="step-icon">🎯</span>
+                            <h4>Strategize</h4>
+                            <p>We craft a detailed agile plan with robust clear timelines.</p>
+                        </div>
+                    </div>
+                    <div class="agile-step" id="agile3">
+                        <div class="step-circle">
+                            <span class="step-num">Step-3</span>
+                            <span class="step-icon">🎨</span>
+                            <h4>Design</h4>
+                            <p>UX experts create wireframes merging aesthetic & functionality.</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="agile-row mobile-reverse" style="margin-top: 50px;">
+                    <!-- Visual layout for Desktop is 6 (Left), 5 (Middle), 4 (Right) -->
+                    <div class="agile-step" id="agile6">
+                        <div class="step-circle">
+                            <span class="step-num">Step-6</span>
+                            <span class="step-icon">🚀</span>
+                            <h4>Launch</h4>
+                            <p>Deploy your agile project ensuring a strong market entry footprint.</p>
+                        </div>
+                    </div>
+                    <div class="agile-step" id="agile5">
+                        <div class="step-circle">
+                            <span class="step-num">Step-5</span>
+                            <span class="step-icon">⚙️</span>
+                            <h4>QA Testing</h4>
+                            <p>Rigorous multi-device quality testing for a flawless interaction.</p>
+                        </div>
+                    </div>
+                    <div class="agile-step" id="agile4">
+                        <div class="step-circle">
+                            <span class="step-num">Step-4</span>
+                            <span class="step-icon">💻</span>
+                            <h4>Develop</h4>
+                            <p>We bring your product vision to life using highly scalable tech.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- Case Study / Node Diagram Section -->
+    <section id="case" class="node-section">
+        <div class="container">
+            <div class="section-header gs-reveal" style="margin-bottom: 20px;">
+                <h2 class="section-title">Case Study Networks</h2>
+            </div>
+            
+            <div class="node-diagram-wrapper gs-reveal">
+                <!-- SVG layer for connecting lines -->
+                <svg id="nodeSvgContainer" class="node-svg"></svg>
+                
+                <!-- Center Brain -->
+                <div class="center-brain pulse-glow" id="centerBrain">
+                    <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Axon Core" style="width: 80%; height: 80%; border-radius: 50%; object-fit:cover;">
+                </div>
+                
+                <!-- Satellite Nodes -->
+                <div class="satellite-node" id="node1" style="top: 15%; left: 5%;">Digital Commerce Agent<span class="node-dot"></span></div>
+                <div class="satellite-node" id="node2" style="top: 50%; left: 0%;">Research Reviewer Agent<span class="node-dot"></span></div>
+                <div class="satellite-node" id="node3" style="bottom: 15%; left: 5%;">Enterprise Resource Planner Agent<span class="node-dot"></span></div>
+                
+                <div class="satellite-node" id="node4" style="top: 15%; right: 5%;"><span class="node-dot left-dot"></span>Project Management System</div>
+                <div class="satellite-node" id="node5" style="top: 50%; right: 0%;"><span class="node-dot left-dot"></span>Customer Support Agent</div>
+                <div class="satellite-node" id="node6" style="bottom: 15%; right: 5%;"><span class="node-dot left-dot"></span>Project Management Agent</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials" style="position:relative; overflow:hidden;">
+        <!-- New Laser Web Background -->
+        <div id="particles-js-laser" style="position:absolute; top:0; left:0; width:100%; height:100%; z-index:0; pointer-events:none; opacity: 0.5;"></div>
+        
+        <div class="container" style="position:relative; z-index:1;">
+            <div class="section-header gs-reveal">
+                <h2 class="section-title">Our Testimonials</h2>
+                <p class="testimo-sub">A satisfied clientele is a milestone we take pride in. Our clients are our biggest advocates.</p>
+            </div>
+            
+            <div class="testimo-columns-wrapper gs-reveal">
+                <!-- Column 1: Scrolls Up -->
+                <div class="testimo-col scroll-up">
+                    <div class="testimo-col-inner">
+                        <div class="testimo-card service-card tilt-card">
+                            <div class="profile-row">
+                                <div class="profile-pic" style="background: url('https://i.pravatar.cc/100?img=11') center/cover;"></div>
+                                <div class="profile-info"><h4>Alexander Malik</h4><p>@alexmalik</p></div>
+                            </div>
+                            <p class="testimo-text">"Axon Systems rebuilt our SaaS dashboard — performance improved and onboarding dropped to minutes."</p>
+                        </div>
+                        <div class="testimo-card service-card tilt-card">
+                            <div class="profile-row">
+                                <div class="profile-pic" style="background: url('https://i.pravatar.cc/100?img=33') center/cover;"></div>
+                                <div class="profile-info"><h4>David Chen</h4><p>@davidc</p></div>
+                            </div>
+                            <p class="testimo-text">"Their custom automations saved our operations team 40 hours a week. A truly game-changing agency!"</p>
+                        </div>
+                        <!-- Duplicate for infinite loop -->
+                        <div class="testimo-card service-card tilt-card">
+                            <div class="profile-row">
+                                <div class="profile-pic" style="background: url('https://i.pravatar.cc/100?img=11') center/cover;"></div>
+                                <div class="profile-info"><h4>Alexander Malik</h4><p>@alexmalik</p></div>
+                            </div>
+                            <p class="testimo-text">"Axon Systems rebuilt our SaaS dashboard — performance improved and onboarding dropped to minutes."</p>
+                        </div>
+                        <div class="testimo-card service-card tilt-card">
+                            <div class="profile-row">
+                                <div class="profile-pic" style="background: url('https://i.pravatar.cc/100?img=33') center/cover;"></div>
+                                <div class="profile-info"><h4>David Chen</h4><p>@davidc</p></div>
+                            </div>
+                            <p class="testimo-text">"Their custom automations saved our operations team 40 hours a week. A truly game-changing agency!"</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 2: Scrolls Down -->
+                <div class="testimo-col scroll-down">
+                    <div class="testimo-col-inner">
+                        <div class="testimo-card service-card tilt-card">
+                            <div class="profile-row">
+                                <div class="profile-pic" style="background: url('https://i.pravatar.cc/100?img=5') center/cover;"></div>
+                                <div class="profile-info"><h4>Sarah Ahmed</h4><p>@saraha</p></div>
+                            </div>
+                            <p class="testimo-text">"They architected an AI assistant for our support team that drafts replies and summarizes tickets — time to resolution dropped significantly."</p>
+                        </div>
+                        <div class="testimo-card service-card tilt-card">
+                            <div class="profile-row">
+                                <div class="profile-pic" style="background: url('https://i.pravatar.cc/100?img=12') center/cover;"></div>
+                                <div class="profile-info"><h4>Jason Roy</h4><p>@jasonr</p></div>
+                            </div>
+                            <p class="testimo-text">"From design to API deployment, Axon Systems executes flawlessly. The fiery aesthetic matches their fast speed."</p>
+                        </div>
+                        <!-- Duplicate for infinite loop -->
+                        <div class="testimo-card service-card tilt-card">
+                            <div class="profile-row">
+                                <div class="profile-pic" style="background: url('https://i.pravatar.cc/100?img=5') center/cover;"></div>
+                                <div class="profile-info"><h4>Sarah Ahmed</h4><p>@saraha</p></div>
+                            </div>
+                            <p class="testimo-text">"They architected an AI assistant for our support team that drafts replies and summarizes tickets — time to resolution dropped significantly."</p>
+                        </div>
+                        <div class="testimo-card service-card tilt-card">
+                            <div class="profile-row">
+                                <div class="profile-pic" style="background: url('https://i.pravatar.cc/100?img=12') center/cover;"></div>
+                                <div class="profile-info"><h4>Jason Roy</h4><p>@jasonr</p></div>
+                            </div>
+                            <p class="testimo-text">"From design to API deployment, Axon Systems executes flawlessly. The fiery aesthetic matches their fast speed."</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Column 3: Scrolls Up -->
+                <div class="testimo-col scroll-up">
+                    <div class="testimo-col-inner">
+                        <div class="testimo-card service-card tilt-card">
+                            <div class="profile-row">
+                                <div class="profile-pic" style="background: url('https://i.pravatar.cc/100?img=13') center/cover;"></div>
+                                <div class="profile-info"><h4>Michael Sayed</h4><p>@michaels</p></div>
+                            </div>
+                            <p class="testimo-text">"They modernized our legacy platform into a modular microservices architecture, improving deployment velocity and reducing outages."</p>
+                        </div>
+                        <div class="testimo-card service-card tilt-card">
+                            <div class="profile-row">
+                                <div class="profile-pic" style="background: url('https://i.pravatar.cc/100?img=20') center/cover;"></div>
+                                <div class="profile-info"><h4>Elena Rostova</h4><p>@elenar</p></div>
+                            </div>
+                            <p class="testimo-text">"The intelligent agents they built for our firm revolutionized our data processing capabilities entirely."</p>
+                        </div>
+                        <!-- Duplicate for infinite loop -->
+                        <div class="testimo-card service-card tilt-card">
+                            <div class="profile-row">
+                                <div class="profile-pic" style="background: url('https://i.pravatar.cc/100?img=13') center/cover;"></div>
+                                <div class="profile-info"><h4>Michael Sayed</h4><p>@michaels</p></div>
+                            </div>
+                            <p class="testimo-text">"They modernized our legacy platform into a modular microservices architecture, improving deployment velocity and reducing outages."</p>
+                        </div>
+                        <div class="testimo-card service-card tilt-card">
+                            <div class="profile-row">
+                                <div class="profile-pic" style="background: url('https://i.pravatar.cc/100?img=20') center/cover;"></div>
+                                <div class="profile-info"><h4>Elena Rostova</h4><p>@elenar</p></div>
+                            </div>
+                            <p class="testimo-text">"The intelligent agents they built for our firm revolutionized our data processing capabilities entirely."</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="about-flex">
+                <div class="about-text gs-reveal">
+                    <span class="tag">ABOUT US</span>
+                    <h2 class="section-title">ENGINEERING THE FUTURE</h2>
+                    <p>At Axon Systems, we don't just write code; we architect intelligent systems that adapt and evolve. Our core philosophy is built around efficiency and the seamless integration of AI into daily enterprise operations.</p>
+                    <ul class="feature-list">
+                        <li><span class="check">✓</span> Scalable Infrastructure</li>
+                        <li><span class="check">✓</span> LLM Orchestration</li>
+                        <li><span class="check">✓</span> 24/7 Monitoring</li>
+                    </ul>
+                </div>
+                <div class="about-visual gs-reveal">
+                    <div class="glass-orb">
+                        <div class="inner-orb"></div>
+                    </div>
+                    <div class="connecting-line"></div>
+                    <div class="glass-orb small-orb pos-1"></div>
+                    <div class="glass-orb small-orb pos-2"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fixed Footer Structure -->
+    <footer class="footer">
+        <div class="container footer-grid gs-reveal">
+            
+            <div class="footer-col brand-col">
+                <div class="logo">
+                    <img src="{{ url_for('static', filename='images/logo.jpg') }}" alt="Axon Systems Logo" class="brand-logo-img">
+                    <div class="logo-text">
+                        <span class="text-top">AXON</span>
+                        <span class="text-bottom">SYSTEMS</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer-col contact-col">
+                <h4>Contact Info</h4>
+                <div class="contact-item">
+                    <span class="icon">📞</span>
+                    <div class="contact-text">
+                        <strong>Phone</strong>
+                        <span>(+92) 317-1055425</span>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">✉️</span>
+                    <div class="contact-text">
+                        <strong>Email</strong>
+                        <span>info@axonsystems.com</span>
+                    </div>
+                </div>
+                <div class="contact-item">
+                    <span class="icon">📍</span>
+                    <div class="contact-text">
+                        <strong>Address</strong>
+                        <span>Gulshan-e-Iqbal, Karachi</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-col links-col">
+                <h4>Home</h4>
+                <ul class="footer-links">
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#services">Services</a></li>
+                    <li><a href="#case">Case Study</a></li>
+                    <li><a href="#testimonials">Feed</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-col widget-col">
+                <div class="newsletter">
+                    <h4>Stay Updated</h4>
+                    <div class="input-group">
+                        <input type="email" placeholder="Join our premier newsletter">
+                        <button class="nav-btn">Subscribe</button>
+                    </div>
+                </div>
+                
+                <!-- Embedded Google Map -->
+                <div class="footer-map mt-3">
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d924239.52924467!2d66.5949176880927!3d25.19298371343759!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3eb33e06651d4bbf%3A0x9cf92f44555a0c23!2sKarachi%2C%20Karachi%20City%2C%20Sindh%2C%20Pakistan!5e0!3m2!1sen!2s!4v1714023451234!5m2!1sen!2s" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 Axon Systems. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <!-- Smart AI Chatbot -->
+    <div class="chatbot-widget">
+        <div class="chat-toggle" id="chatToggle">
+            <!-- Animated Agent Icon -->
+            <div class="agent-avatar">
+                <div class="agent-core"></div>
+                <div class="agent-ring ring-1"></div>
+                <div class="agent-ring ring-2"></div>
+            </div>
+            <span class="chat-badge pulse">1</span>
+        </div>
+        <div class="chat-window d-none" id="chatWindow">
+            <div class="chat-header">
+                <div class="chat-header-info">
+                    <strong>Axon AI Assistant</strong>
+                    <span class="online-status">● Online</span>
+                </div>
+                <button class="close-chat" id="closeChat">&times;</button>
+            </div>
+            <div class="chat-body" id="chatBody">
+                <div class="msg ai">Hello! I'm the designated AI for Axon Systems. Send me a message, ask about our services, pricing, or location!</div>
+            </div>
+            <div class="chat-input-area">
+                <input type="text" id="chatMsg" placeholder="Ask me anything...">
+                <button id="sendChat">➤</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Us Modal (Matched from screenshot) -->
+    <div class="contact-modal-overlay" id="contactModal">
+        <div class="contact-modal-content">
+            <button class="close-modal" id="closeContact">&times;</button>
+            <h2 class="modal-title">Contact <span>Us</span></h2>
+            <p class="modal-sub">Have questions or want to work with us? Fill out the form below and we'll get back to you as soon as possible.</p>
+            
+            <div class="form-container">
+                <form id="contactForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Name <span class="req">*</span></label>
+                            <input type="text" placeholder="Your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email <span class="req">*</span></label>
+                            <input type="email" placeholder="you@example.com" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Subject <span class="req">*</span></label>
+                        <input type="text" placeholder="Subject of your message" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Message <span class="req">*</span></label>
+                        <textarea placeholder="Write your message here..." rows="5" required></textarea>
+                    </div>
+                    <div class="form-submit-row">
+                        <button type="submit" class="btn btn-submit">Send Message</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/vanilla-tilt/1.8.0/vanilla-tilt.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+</body>
+</html>

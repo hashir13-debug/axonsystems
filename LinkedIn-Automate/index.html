@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Axon LinkedIn Autopilot — AI-Powered LinkedIn Growth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#050810;--card:#0c1220;--blue:#0077b5;--cyan:#00c8ff;--green:#00ff88;--w:#e8eef8;--gr:#6b7a99;--glow:rgba(0,120,181,0.35)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--w);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.bg-mesh{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 80% 60% at 20% 20%,rgba(0,120,181,0.18) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 80%,rgba(0,200,255,0.1) 0%,transparent 60%)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(5,8,16,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.07)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--w);font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:18px}
+.nav-logo span{color:var(--cyan)}
+.back-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:var(--w);padding:9px 20px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;transition:all .3s}
+.back-btn:hover{background:rgba(0,120,181,0.15);border-color:var(--blue)}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 5% 80px;position:relative;z-index:1}
+.li-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,119,181,0.15);border:1px solid rgba(0,119,181,0.4);color:var(--cyan);padding:8px 20px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px}
+.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(2.2);opacity:.3}}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,7vw,80px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:24px}
+.grad{background:linear-gradient(135deg,var(--blue) 0%,var(--cyan) 60%,var(--green) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:clamp(15px,2vw,19px);color:var(--gr);line-height:1.8;max-width:580px;margin:0 auto 40px}
+.cta-group{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;padding:15px 36px;border-radius:12px;font-size:15px;font-weight:800;text-decoration:none;transition:all .3s;box-shadow:0 0 50px rgba(0,119,181,0.4)}
+.btn-primary:hover{transform:translateY(-4px);box-shadow:0 0 80px rgba(0,119,181,0.6)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);color:var(--w);padding:15px 36px;border-radius:12px;font-size:15px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:all .3s}
+.btn-ghost:hover{border-color:rgba(0,200,255,.4);transform:translateY(-4px)}
+
+/* Dashboard mockup */
+.dashboard-wrap{margin:60px auto 0;max-width:900px;background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,0.6),0 0 100px rgba(0,119,181,0.1)}
+.db-header{display:flex;align-items:center;gap:8px;padding:14px 20px;background:rgba(0,0,0,0.3);border-bottom:1px solid rgba(255,255,255,0.06)}
+.db-dot{width:12px;height:12px;border-radius:50%}
+.db-dot.r{background:#ff5f57}.db-dot.y{background:#febc2e}.db-dot.g{background:#28c840}
+.db-title{margin-left:8px;font-size:13px;color:var(--gr);font-family:'Space Grotesk',sans-serif;font-weight:600}
+.db-body{display:grid;grid-template-columns:200px 1fr;min-height:420px}
+.db-sidebar{padding:20px 0;border-right:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.2)}
+.db-nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13px;color:var(--gr);cursor:pointer;transition:all .2s}
+.db-nav-item.active{color:var(--cyan);background:rgba(0,200,255,0.06);border-left:2px solid var(--cyan)}
+.db-nav-item:hover:not(.active){color:var(--w);background:rgba(255,255,255,0.03)}
+.db-nav-icon{font-size:16px;width:20px}
+.db-main{padding:24px}
+.db-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
+.db-stat{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px}
+.db-stat-val{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;color:var(--cyan);margin-bottom:4px}
+.db-stat-val.green{color:var(--green)}.db-stat-val.blue{color:#60a5fa}
+.db-stat-label{font-size:11px;color:var(--gr);text-transform:uppercase;letter-spacing:1px}
+.db-chart{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:16px;margin-bottom:16px;height:120px;display:flex;align-items:flex-end;gap:6px}
+.bar{flex:1;background:linear-gradient(to top,var(--blue),var(--cyan));border-radius:4px 4px 0 0;opacity:0.8;animation:barUp .8s ease both}
+@keyframes barUp{from{height:0}to{height:var(--h)}}
+.db-table{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;overflow:hidden}
+.db-table-row{display:flex;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px;align-items:center;gap:12px}
+.db-table-row.hd{color:var(--gr);text-transform:uppercase;letter-spacing:1px;font-size:10px}
+.db-name{flex:1;font-weight:600}.db-status{padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700}
+.db-status.sent{background:rgba(0,200,255,0.12);color:var(--cyan)}.db-status.accepted{background:rgba(0,255,136,0.12);color:var(--green)}.db-status.pending{background:rgba(255,200,0,0.1);color:#ffc800}
+
+/* Features */
+.features{padding:100px 5%;position:relative;z-index:1}
+.sec-tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;display:block}
+.sec-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,5vw,52px);font-weight:800;margin-bottom:16px;line-height:1.1}
+.sec-sub{color:var(--gr);font-size:16px;margin-bottom:60px}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1100px;margin:0 auto}
+.feat-card{background:var(--card);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px;transition:all .3s}
+.feat-card:hover{border-color:rgba(0,200,255,0.3);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
+.feat-icon{font-size:32px;margin-bottom:16px}
+.feat-card h3{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px}
+.feat-card p{color:var(--gr);font-size:14px;line-height:1.7}
+.feat-tag{display:inline-block;background:rgba(0,200,255,0.08);color:var(--cyan);border:1px solid rgba(0,200,255,0.2);padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;margin-top:12px;letter-spacing:.5px;text-transform:uppercase}
+
+/* Tech stack */
+.tech{padding:60px 5% 100px;position:relative;z-index:1;text-align:center}
+.tech-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:800px;margin:0 auto}
+.tech-pill{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600;color:var(--w);transition:all .2s}
+.tech-pill:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,200,255,0.08)}
+
+/* Backend note */
+.note-section{padding:40px 5% 80px;position:relative;z-index:1;text-align:center}
+.note-box{display:inline-block;background:rgba(0,119,181,0.1);border:1px solid rgba(0,119,181,0.3);border-radius:16px;padding:24px 40px;max-width:600px}
+.note-box p{color:var(--gr);font-size:15px;line-height:1.7}
+.note-box strong{color:var(--cyan)}
+
+footer{text-align:center;padding:40px 5%;border-top:1px solid rgba(255,255,255,0.07);color:var(--gr);font-size:13px;position:relative;z-index:1}
+footer a{color:var(--cyan);text-decoration:none}
+
+@media(max-width:700px){
+  .db-body{grid-template-columns:1fr}
+  .db-sidebar{display:none}
+  .db-stat-row{grid-template-columns:1fr 1fr}
+  .hero h1{letter-spacing:-1px}
+}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">AXON <span>SYSTEMS</span></a>
+  <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+</nav>
+
+<section class="hero">
+  <div class="li-badge"><div class="badge-dot"></div>AI-POWERED LINKEDIN AUTOMATION</div>
+  <h1>Axon <span class="grad">LinkedIn</span><br>Autopilot</h1>
+  <p>Autonomous AI agent that handles your entire LinkedIn presence — from smart connection requests to AI-written posts, analytics, and scheduled outreach. 24/7, hands-free.</p>
+  <div class="cta-group">
+    <a href="mailto:info@axonsystems.com?subject=LinkedIn Autopilot Demo Request" class="btn-primary">🚀 Request Live Demo</a>
+    <a href="../index.html#portfolio" class="btn-ghost">← Other Projects</a>
+  </div>
+
+  <!-- Dashboard Mockup -->
+  <div class="dashboard-wrap">
+    <div class="db-header">
+      <div class="db-dot r"></div><div class="db-dot y"></div><div class="db-dot g"></div>
+      <span class="db-title">Axon LinkedIn Autopilot — Dashboard v2.0</span>
+    </div>
+    <div class="db-body">
+      <div class="db-sidebar">
+        <div class="db-nav-item active"><span class="db-nav-icon">📊</span>Dashboard</div>
+        <div class="db-nav-item"><span class="db-nav-icon">👥</span>Auto Connect</div>
+        <div class="db-nav-item"><span class="db-nav-icon">✍️</span>AI Compose</div>
+        <div class="db-nav-item"><span class="db-nav-icon">📅</span>Schedule</div>
+        <div class="db-nav-item"><span class="db-nav-icon">📈</span>Analytics</div>
+        <div class="db-nav-item"><span class="db-nav-icon">💡</span>AI Ideas</div>
+        <div class="db-nav-item"><span class="db-nav-icon">⚙️</span>Settings</div>
+      </div>
+      <div class="db-main">
+        <div class="db-stat-row">
+          <div class="db-stat"><div class="db-stat-val">1,247</div><div class="db-stat-label">Connections Sent</div></div>
+          <div class="db-stat"><div class="db-stat-val green">342</div><div class="db-stat-label">Accepted</div></div>
+          <div class="db-stat"><div class="db-stat-val blue">27.4%</div><div class="db-stat-label">Accept Rate</div></div>
+        </div>
+        <div class="db-chart">
+          <div class="bar" style="--h:40%"></div><div class="bar" style="--h:65%"></div><div class="bar" style="--h:45%"></div>
+          <div class="bar" style="--h:80%"></div><div class="bar" style="--h:55%"></div><div class="bar" style="--h:90%"></div>
+          <div class="bar" style="--h:70%"></div><div class="bar" style="--h:100%"></div><div class="bar" style="--h:85%"></div>
+          <div class="bar" style="--h:95%"></div><div class="bar" style="--h:75%"></div><div class="bar" style="--h:88%"></div>
+        </div>
+        <div class="db-table">
+          <div class="db-table-row hd"><span class="db-name">Name</span><span>Title</span><span>Status</span></div>
+          <div class="db-table-row"><span class="db-name">Sarah Mitchell</span><span style="color:var(--gr);font-size:11px">CTO at TechCorp</span><span class="db-status accepted">Accepted</span></div>
+          <div class="db-table-row"><span class="db-name">John Peterson</span><span style="color:var(--gr);font-size:11px">CEO at StartupXYZ</span><span class="db-status sent">Sent</span></div>
+          <div class="db-table-row"><span class="db-name">Amara Diallo</span><span style="color:var(--gr);font-size:11px">Founder at VentureAI</span><span class="db-status pending">Pending</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div style="text-align:center;margin-bottom:60px;">
+    <span class="sec-tag">// CORE CAPABILITIES //</span>
+    <h2 class="sec-title">What Axon Autopilot Does</h2>
+    <p class="sec-sub">Complete LinkedIn automation powered by GPT-4 AI</p>
+  </div>
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon">🤖</div>
+      <h3>Smart Auto-Connect</h3>
+      <p>AI identifies your ideal connections by role, industry, and location. Sends personalized invitations at safe, human-like rates to maximize acceptance.</p>
+      <span class="feat-tag">GPT-4 Powered</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">✍️</div>
+      <h3>AI Post Generator</h3>
+      <p>Generates engaging, professional LinkedIn posts on trending topics in your niche. Schedule a week of content in minutes with one-click publishing.</p>
+      <span class="feat-tag">Auto-Schedule</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📊</div>
+      <h3>Analytics Dashboard</h3>
+      <p>Real-time insights on connection acceptance rates, post engagement, profile views, and campaign performance — all in one clean dashboard.</p>
+      <span class="feat-tag">Real-time</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📅</div>
+      <h3>Campaign Scheduler</h3>
+      <p>Set up multi-day outreach campaigns with daily limits, time zone awareness, and automatic follow-up sequences for warm leads.</p>
+      <span class="feat-tag">Multi-campaign</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">💡</div>
+      <h3>AI Content Ideas</h3>
+      <p>Never run out of ideas — the AI generates topic suggestions based on your industry trends, competitor analysis, and engagement patterns.</p>
+      <span class="feat-tag">Trend Analysis</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🔒</div>
+      <h3>Safe & Compliant</h3>
+      <p>Built-in rate limiting, human-like delays, and LinkedIn-compliant behavior to keep your account safe. Supports multiple LinkedIn accounts.</p>
+      <span class="feat-tag">Account Safe</span>
+    </div>
+  </div>
+</section>
+
+<section class="tech">
+  <span class="sec-tag">// TECH STACK //</span>
+  <h2 class="sec-title" style="margin-bottom:12px;">Built With</h2>
+  <p style="color:var(--gr);margin-bottom:32px;">Enterprise-grade technologies powering the automation</p>
+  <div class="tech-grid">
+    <span class="tech-pill">Python</span><span class="tech-pill">Flask</span><span class="tech-pill">GPT-4</span>
+    <span class="tech-pill">LinkedIn API</span><span class="tech-pill">Selenium</span><span class="tech-pill">SQLAlchemy</span>
+    <span class="tech-pill">APScheduler</span><span class="tech-pill">Docker</span><span class="tech-pill">Railway</span>
+    <span class="tech-pill">Bootstrap</span><span class="tech-pill">Chart.js</span><span class="tech-pill">JWT Auth</span>
+  </div>
+</section>
+
+<section class="note-section">
+  <div class="note-box">
+    <p>🚀 <strong>This is a full-stack web application</strong> requiring a server to run. The dashboard mockup above represents the actual UI. <strong>Contact Axon Systems</strong> to request a live hosted demo or to deploy this for your business.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Built by <a href="../index.html">Axon Systems</a> &nbsp;·&nbsp; AI-Powered Autonomous Agents &nbsp;·&nbsp; <a href="mailto:info@axonsystems.com">info@axonsystems.com</a></p>
+</footer>
+</body>
+</html>

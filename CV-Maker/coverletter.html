@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Cover Letter Generator — AxonCV by Axon Systems</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060409;--bg2:#0d0810;--card:#120d16;
+  --bdr:rgba(255,255,255,0.07);--bdr-h:rgba(230,48,0,0.4);
+  --red:#e63000;--orange:#ff6633;--gold:#cc8800;--glow:rgba(230,48,0,0.3);
+  --w:#f0eef8;--gr:#8890a8;--l:#c8ccd8;
+  --fh:'Space Grotesk',sans-serif;--fb:'Inter',sans-serif
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:var(--fb);background:var(--bg);color:var(--w);min-height:100vh;-webkit-font-smoothing:antialiased}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:999;height:62px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(6,4,9,0.92);backdrop-filter:blur(24px);border-bottom:1px solid var(--bdr)}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--w)}
+.logo img{width:36px;height:36px;border-radius:9px;object-fit:cover;box-shadow:0 0 16px var(--glow)}
+.logo-name{font-family:var(--fh);font-size:18px;font-weight:800}
+.logo-name span{color:var(--orange)}
+.logo-sub{font-size:10px;color:var(--gr)}
+.nav-btns{display:flex;gap:8px}
+.nbtn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:600;cursor:pointer;border:none;font-family:var(--fb);transition:all .2s;text-decoration:none}
+.nbtn-g{background:rgba(255,255,255,.06);color:var(--w);border:1px solid var(--bdr)}
+.nbtn-g:hover{background:rgba(255,255,255,.11)}
+.nbtn-p{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;font-weight:700;box-shadow:0 2px 12px var(--glow)}
+.nbtn-p:hover{opacity:.9;transform:translateY(-1px)}
+
+main{padding:100px 5% 60px;max-width:1200px;margin:0 auto}
+
+.page-hero{text-align:center;margin-bottom:52px}
+.page-tag{display:inline-block;background:rgba(230,48,0,0.1);color:var(--orange);border:1px solid rgba(230,48,0,.28);padding:6px 18px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:20px}
+.page-title{font-family:var(--fh);font-size:clamp(28px,4.5vw,52px);font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:14px}
+.grad{background:linear-gradient(135deg,var(--red) 0%,var(--orange) 55%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.page-sub{color:var(--gr);font-size:16px;max-width:520px;margin:0 auto;line-height:1.75}
+
+.cl-grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:start}
+@media(max-width:860px){.cl-grid{grid-template-columns:1fr}}
+
+.panel{background:var(--card);border:1px solid var(--bdr);border-radius:20px;padding:26px}
+.panel-title{font-size:11px;font-weight:700;color:var(--gr);text-transform:uppercase;letter-spacing:1.5px;margin-bottom:18px;display:flex;align-items:center;gap:8px}
+.panel-title::before{content:'';width:3px;height:14px;background:linear-gradient(var(--red),var(--orange));border-radius:2px}
+
+.fr{margin-bottom:12px}
+.fr label{display:block;font-size:9.5px;font-weight:700;color:var(--gr);text-transform:uppercase;letter-spacing:.8px;margin-bottom:5px}
+.fi{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--bdr);border-radius:8px;padding:8px 11px;color:var(--w);font-size:12px;font-family:var(--fb);outline:none;transition:all .2s}
+.fi:focus{border-color:var(--orange);background:rgba(230,48,0,.05);box-shadow:0 0 0 3px rgba(230,48,0,.1)}
+.fi::placeholder{color:rgba(255,255,255,.18)}
+textarea.fi{resize:vertical;min-height:80px;line-height:1.55}
+.fg2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+
+.resume-badge{background:rgba(0,200,83,.1);border:1px solid rgba(0,200,83,.25);color:#00c853;padding:8px 12px;border-radius:8px;font-size:11px;font-weight:600;display:flex;align-items:center;gap:8px;margin-bottom:16px}
+
+.gen-btn{width:100%;padding:14px;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;border:none;border-radius:12px;font-size:14px;font-weight:800;cursor:pointer;font-family:var(--fb);transition:all .3s;box-shadow:0 4px 20px var(--glow);display:flex;align-items:center;justify-content:center;gap:10px}
+.gen-btn:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 8px 32px var(--glow)}
+.gen-btn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+
+.tips{display:flex;flex-direction:column;gap:8px;margin-top:16px}
+.tip{display:flex;align-items:flex-start;gap:10px;font-size:11px;color:var(--gr);line-height:1.6}
+.tip-ico{width:22px;height:22px;border-radius:6px;background:rgba(230,48,0,.12);color:var(--orange);font-size:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:1px}
+
+/* Preview panel */
+.preview-empty{text-align:center;padding:48px 20px;color:var(--gr)}
+.preview-empty-ico{font-size:40px;margin-bottom:12px}
+.preview-empty-txt{font-size:13px;line-height:1.65}
+
+.cl-toolbar{display:flex;align-items:center;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.cl-toolbar-title{font-size:11px;font-weight:700;color:var(--gr);text-transform:uppercase;letter-spacing:1px;flex:1}
+.tl-btn{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;border-radius:7px;font-size:11px;font-weight:600;cursor:pointer;border:none;font-family:var(--fb);transition:all .18s}
+.tl-btn-g{background:rgba(255,255,255,.07);color:var(--w);border:1px solid var(--bdr)}
+.tl-btn-g:hover{background:rgba(255,255,255,.12)}
+.tl-btn-p{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;box-shadow:0 2px 10px var(--glow)}
+.tl-btn-p:hover{opacity:.9}
+
+.cl-paper{background:#fff;border-radius:10px;padding:36px 32px;font-family:Georgia,serif;font-size:11pt;color:#1a1a1a;line-height:1.8;white-space:pre-wrap;min-height:400px;box-shadow:0 4px 28px rgba(0,0,0,.3);border:1px solid rgba(255,255,255,.08)}
+.cl-paper:focus{outline:2px solid var(--orange);outline-offset:2px}
+
+/* Tone selector */
+.tone-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.tone-btn{padding:5px 13px;border-radius:100px;border:1px solid var(--bdr);background:transparent;color:var(--gr);font-size:11px;font-weight:600;cursor:pointer;font-family:var(--fb);transition:all .2s}
+.tone-btn:hover{border-color:rgba(230,48,0,.4);color:var(--w)}
+.tone-btn.active{background:linear-gradient(135deg,var(--red),var(--orange));border-color:transparent;color:#fff}
+
+/* Toast */
+#clToast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#e63000,#ff6633);color:#fff;padding:11px 22px;border-radius:12px;font-size:13px;font-weight:700;z-index:9999;box-shadow:0 6px 24px rgba(230,48,0,.4);display:none;animation:tin .3s ease}
+@keyframes tin{from{opacity:0;transform:translateX(-50%) translateY(14px)}to{opacity:1;transform:translateX(-50%) translateY(0)}}
+
+/* Print */
+@media print{
+  nav,.cl-grid .panel:first-child,.cl-toolbar,.page-hero,#clToast{display:none!important}
+  main{padding:0!important;max-width:100%!important}
+  .cl-grid{grid-template-columns:1fr!important}
+  .panel{background:#fff!important;border:none!important;padding:0!important}
+  .cl-paper{box-shadow:none!important;border:none!important;padding:0.5in!important;font-size:11pt!important}
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="logo">
+    <img src="axonnn-logo.jpeg" alt="Axon Systems" onerror="this.style.display='none'">
+    <div>
+      <div class="logo-name">Axon<span>CV</span></div>
+    </div>
+  </a>
+  <div class="nav-btns">
+    <a href="builder.html" class="nbtn nbtn-g">← Resume Builder</a>
+    <a href="index.html" class="nbtn nbtn-p">Browse Templates</a>
+  </div>
+</nav>
+
+<main>
+  <div class="page-hero">
+    <div class="page-tag">AI Powered</div>
+    <h1 class="page-title">Cover Letter <span class="grad">Generator</span></h1>
+    <p class="page-sub">Your resume data auto-loads. Just add the company + job title — AI writes a tailored, professional cover letter in seconds.</p>
+  </div>
+
+  <div class="cl-grid">
+
+    <!-- LEFT: Form -->
+    <div>
+      <div class="panel" style="margin-bottom:20px">
+        <div class="panel-title">Job Details</div>
+        <div id="resumeBadge" class="resume-badge" style="display:none">
+          <span>✓</span><span id="resumeName">Resume loaded</span>
+        </div>
+        <div class="fg2">
+          <div class="fr"><label>Company Name *</label><input type="text" class="fi" id="clCompany" placeholder="e.g. Google, Meta, StartupXYZ"></div>
+          <div class="fr"><label>Position / Job Title *</label><input type="text" class="fi" id="clJobTitle" placeholder="e.g. Senior Engineer"></div>
+        </div>
+        <div class="fr"><label>Hiring Manager Name <span style="color:var(--gr);font-weight:400;text-transform:none;letter-spacing:0">(optional)</span></label><input type="text" class="fi" id="clRecruiter" placeholder="e.g. Sarah Johnson — leave blank for 'Hiring Manager'"></div>
+        <div class="fr"><label>Job Description <span style="color:var(--gr);font-weight:400;text-transform:none;letter-spacing:0">(paste for better personalization)</span></label><textarea class="fi" id="clJD" rows="5" placeholder="Paste the full job description here — AI will tailor the letter to match the requirements..."></textarea></div>
+      </div>
+
+      <div class="panel" style="margin-bottom:20px">
+        <div class="panel-title">Letter Tone</div>
+        <div class="tone-row">
+          <button class="tone-btn active" id="tone-professional" onclick="setTone('professional',this)">Professional</button>
+          <button class="tone-btn" id="tone-confident" onclick="setTone('confident',this)">Confident</button>
+          <button class="tone-btn" id="tone-enthusiastic" onclick="setTone('enthusiastic',this)">Enthusiastic</button>
+          <button class="tone-btn" id="tone-concise" onclick="setTone('concise',this)">Concise</button>
+        </div>
+      </div>
+
+      <button class="gen-btn" id="genBtn" onclick="generateLetter()">
+        <span id="genBtnIco">📝</span>
+        <span id="genBtnTxt">Generate Cover Letter →</span>
+      </button>
+
+      <div class="tips" style="margin-top:20px">
+        <div class="tip"><div class="tip-ico">🔒</div>Your data stays in your browser — nothing is sent to any server</div>
+        <div class="tip"><div class="tip-ico">✏️</div>Click directly on the preview to edit any part of the letter</div>
+        <div class="tip"><div class="tip-ico">⚡</div>Regenerate as many times as you want — each is unique</div>
+        <div class="tip"><div class="tip-ico">📄</div>Keep it to one page — recruiters spend under 30 seconds on cover letters</div>
+      </div>
+    </div>
+
+    <!-- RIGHT: Preview -->
+    <div class="panel" id="previewPanel">
+      <div id="emptyState">
+        <div class="preview-empty">
+          <div class="preview-empty-ico">📝</div>
+          <div style="font-size:15px;font-weight:700;color:var(--w);margin-bottom:8px">Your Cover Letter Preview</div>
+          <div class="preview-empty-txt">Fill in the company and job title on the left, then click <strong style="color:var(--orange)">Generate Cover Letter</strong> — AI will write a personalized letter based on your resume data in seconds.</div>
+          <div style="margin-top:24px;display:flex;flex-direction:column;gap:8px;text-align:left;max-width:320px;margin-left:auto;margin-right:auto">
+            <div style="font-size:11px;color:var(--gr);display:flex;align-items:center;gap:8px"><span style="color:var(--orange)">✓</span>Tailored to the job description</div>
+            <div style="font-size:11px;color:var(--gr);display:flex;align-items:center;gap:8px"><span style="color:var(--orange)">✓</span>Uses your actual experience and skills</div>
+            <div style="font-size:11px;color:var(--gr);display:flex;align-items:center;gap:8px"><span style="color:var(--orange)">✓</span>Professional tone, ready to send</div>
+            <div style="font-size:11px;color:var(--gr);display:flex;align-items:center;gap:8px"><span style="color:var(--orange)">✓</span>Editable directly in the preview</div>
+          </div>
+        </div>
+      </div>
+
+      <div id="letterArea" style="display:none">
+        <div class="cl-toolbar">
+          <div class="cl-toolbar-title">Cover Letter Preview</div>
+          <button class="tl-btn tl-btn-g" onclick="copyLetter()">📋 Copy</button>
+          <button class="tl-btn tl-btn-g" onclick="downloadTXT()">📥 TXT</button>
+          <button class="tl-btn tl-btn-p" onclick="printLetter()">🖨️ Print / PDF</button>
+        </div>
+        <div class="cl-paper" id="clPaper" contenteditable="true" spellcheck="true"></div>
+        <div style="font-size:10px;color:var(--gr);margin-top:8px;text-align:center">Click anywhere on the letter to edit · Changes auto-save to clipboard on copy</div>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<div id="clToast"></div>
+
+<script src="cv-engine.js"></script>
+<script src="ai-engine.js"></script>
+<script>
+
+let currentTone = 'professional';
+
+function setTone(tone, btn){
+  currentTone = tone;
+  document.querySelectorAll('.tone-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// Load resume from localStorage
+(function init(){
+  const saved = localStorage.getItem('axoncv_data');
+  if(saved){
+    try{
+      const data = JSON.parse(saved);
+      if(data&&data.personalInfo&&data.personalInfo.name){
+        window._resumeData = data;
+        document.getElementById('resumeBadge').style.display='flex';
+        document.getElementById('resumeName').textContent = `Resume loaded: ${data.personalInfo.name} — ${data.personalInfo.title||''}`;
+        // Pre-fill job title from resume
+        if(data.personalInfo.title && !document.getElementById('clJobTitle').value){
+          document.getElementById('clJobTitle').value = data.personalInfo.title;
+        }
+      }
+    }catch(e){}
+  }
+})();
+
+function getResumeData(){
+  if(window._resumeData) return window._resumeData;
+  // Return minimal blank data
+  return {personalInfo:{name:'Your Name',title:'Professional',email:'',phone:'',linkedin:''},sections:AI.blankSections()};
+}
+
+function generateLetter(){
+  const company = document.getElementById('clCompany').value.trim();
+  const jobTitle = document.getElementById('clJobTitle').value.trim();
+  const recruiter = document.getElementById('clRecruiter').value.trim();
+  const jd = document.getElementById('clJD').value.trim();
+
+  if(!company || !jobTitle){
+    ['clCompany','clJobTitle'].forEach(id=>{
+      const el=document.getElementById(id);
+      if(!el.value.trim()){ el.style.borderColor='#ff4d4d'; el.focus(); setTimeout(()=>el.style.borderColor='',2000); }
+    });
+    toast('Please fill in Company Name and Job Title');
+    return;
+  }
+
+  const btn=document.getElementById('genBtn');
+  const ico=document.getElementById('genBtnIco');
+  const txt=document.getElementById('genBtnTxt');
+  btn.disabled=true; ico.textContent='⏳'; txt.textContent='Generating...';
+
+  setTimeout(()=>{
+    const data = getResumeData();
+    let letter = AI.generateCoverLetter(data, company, jobTitle, recruiter, jd);
+
+    // Tone adjustments
+    if(currentTone === 'confident'){
+      letter = letter.replace(/I am confident that/g,'I know that').replace(/I believe/g,'I am certain').replace(/I would welcome/g,'I am eager for');
+    } else if(currentTone === 'enthusiastic'){
+      letter = letter.replace('Dear Hiring Manager', 'Dear Hiring Team').replace(/I am writing to express/,'I am thrilled to apply for').replace(/Thank you sincerely/,'Thank you so much');
+    } else if(currentTone === 'concise'){
+      // Remove some verbose phrases
+      const paras = letter.split('\n\n');
+      if(paras.length > 8) letter = paras.slice(0,7).join('\n\n') + '\n\n' + paras[paras.length-1];
+    }
+
+    document.getElementById('clPaper').textContent = letter;
+    document.getElementById('emptyState').style.display='none';
+    document.getElementById('letterArea').style.display='block';
+    document.getElementById('clPaper').scrollIntoView({behavior:'smooth',block:'start'});
+
+    btn.disabled=false; ico.textContent='📝'; txt.textContent='Regenerate →';
+    toast('✨ Cover letter generated!');
+  }, 700);
+}
+
+function copyLetter(){
+  const text = document.getElementById('clPaper').innerText || document.getElementById('clPaper').textContent;
+  navigator.clipboard.writeText(text).then(()=>toast('📋 Copied to clipboard!')).catch(()=>{
+    const r=document.createRange(); r.selectNode(document.getElementById('clPaper'));
+    window.getSelection().removeAllRanges(); window.getSelection().addRange(r);
+    document.execCommand('copy'); window.getSelection().removeAllRanges();
+    toast('📋 Copied!');
+  });
+}
+
+function downloadTXT(){
+  const text = document.getElementById('clPaper').innerText || document.getElementById('clPaper').textContent;
+  const name = (getResumeData().personalInfo.name||'Cover').replace(/\s+/g,'_');
+  const company = (document.getElementById('clCompany').value||'Company').replace(/\s+/g,'_');
+  const blob=new Blob([text],{type:'text/plain'});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement('a'); a.href=url; a.download=`${name}_CoverLetter_${company}.txt`; a.click();
+  URL.revokeObjectURL(url);
+}
+
+function printLetter(){
+  window.print();
+}
+
+function toast(msg){
+  const el=document.getElementById('clToast');
+  el.textContent=msg; el.style.display='block';
+  clearTimeout(window._toastT);
+  window._toastT=setTimeout(()=>{el.style.opacity='0';el.style.transition='opacity .3s';setTimeout(()=>{el.style.display='none';el.style.opacity='1';el.style.transition=''},300);},2600);
+}
+
+// Enter key on company/job title triggers generate
+['clCompany','clJobTitle','clRecruiter'].forEach(id=>{
+  document.getElementById(id).addEventListener('keydown',e=>{if(e.key==='Enter')generateLetter();});
+});
+</script>
+</body>
+</html>

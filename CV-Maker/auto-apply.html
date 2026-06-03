@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Auto Apply Hub — AxonCV</title>
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#060409;--panel:#0e0b14;--panel2:#14101e;--panel3:#1a1525;
+  --bdr:rgba(255,255,255,0.07);--bdr2:rgba(255,255,255,0.12);
+  --red:#e63000;--orange:#ff6633;--gold:#cc8800;--glow:rgba(230,48,0,0.3);
+  --success:#00c853;--danger:#ff4d4d;--warn:#ffd700;--info:#4fc3f7;
+  --w:#f0eef8;--gr:#8890a8;--l:#c8ccd8;
+  --fb:'Inter',sans-serif;--fh:'Space Grotesk',sans-serif;
+}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;scrollbar-width:none;-ms-overflow-style:none}
+*::-webkit-scrollbar{display:none!important;width:0!important;height:0!important}
+html,body{height:100%;overflow:hidden;font-family:var(--fb);background:var(--bg);color:var(--w);-webkit-font-smoothing:antialiased}
+
+/* ── TOPBAR ───────────────────────────────── */
+.tb{height:48px;display:flex;align-items:center;justify-content:space-between;padding:0 16px;background:rgba(6,4,9,0.98);border-bottom:1px solid var(--bdr);flex-shrink:0;gap:10px}
+.tb-l{display:flex;align-items:center;gap:12px}
+.tb-logo{display:flex;align-items:center;gap:8px;text-decoration:none;color:var(--w)}
+.logo-box{width:30px;height:30px;border-radius:8px;border:1px solid rgba(230,48,0,.3);display:flex;align-items:center;justify-content:center;font-family:var(--fh);font-size:14px;font-weight:900;background:linear-gradient(135deg,var(--red),var(--orange));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;box-shadow:0 0 12px var(--glow)}
+.logo-nm{font-family:var(--fh);font-size:15px;font-weight:800}
+.logo-nm span{background:linear-gradient(135deg,var(--orange),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.tb-tag{font-size:12px;font-weight:700;color:var(--gr);display:flex;align-items:center;gap:5px}
+.tb-tag::before{content:'›';color:var(--red);font-size:14px}
+.tb-c{display:flex;gap:8px;align-items:center}
+.chip{display:flex;align-items:center;gap:5px;padding:4px 10px;border-radius:7px;font-size:11px;font-weight:600;border:1px solid var(--bdr)}
+.chip.g{background:rgba(0,200,83,.1);border-color:rgba(0,200,83,.3);color:var(--success)}
+.chip.b{background:rgba(79,195,247,.1);border-color:rgba(79,195,247,.3);color:var(--info)}
+.chip.r{background:rgba(255,77,77,.1);border-color:rgba(255,77,77,.3);color:var(--danger);display:none}
+.dot-pulse{width:6px;height:6px;border-radius:50%;background:currentColor;animation:dp 1.4s infinite;display:none}
+@keyframes dp{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.6)}}
+.tb-r{display:flex;gap:5px}
+.nb{padding:5px 12px;border-radius:7px;font-size:11px;font-weight:600;border:1px solid var(--bdr);background:rgba(255,255,255,.04);color:var(--gr);text-decoration:none;transition:all .2s}
+.nb:hover{background:rgba(255,255,255,.09);color:var(--w)}
+.nb.on{background:rgba(230,48,0,.12);border-color:rgba(230,48,0,.35);color:var(--orange)}
+
+/* ── GRID ─────────────────────────────────── */
+.grid{display:grid;grid-template-columns:250px 1fr 310px;height:calc(100vh - 48px);overflow:hidden}
+
+/* ── LEFT PANEL ───────────────────────────── */
+.lp{background:var(--panel);border-right:1px solid var(--bdr);display:flex;flex-direction:column;overflow:hidden;height:100%}
+.ph{padding:9px 14px;border-bottom:1px solid var(--bdr);flex-shrink:0;display:flex;align-items:center;justify-content:space-between}
+.ph-title{font-family:var(--fh);font-size:11px;font-weight:700;color:var(--gr);text-transform:uppercase;letter-spacing:.6px;display:flex;align-items:center;gap:6px}
+/* CV upload — compact single bar */
+.cv-bar{display:flex;align-items:center;gap:8px;padding:8px 12px;margin:8px;border:1.5px dashed var(--bdr2);border-radius:9px;cursor:pointer;transition:all .2s;font-size:12px;font-weight:600;color:var(--gr)}
+.cv-bar:hover,.cv-bar.drag{border-color:var(--orange);background:rgba(255,102,51,.05);color:var(--orange)}
+.cv-bar .ci{font-size:15px;flex-shrink:0}
+#cvFileInput{display:none}
+/* CV list */
+.cv-list{padding:0 8px 6px;flex-shrink:0}
+.cvc{display:flex;align-items:center;gap:7px;padding:6px 9px;border-radius:8px;border:1px solid var(--bdr);background:var(--panel2);margin-bottom:5px;cursor:pointer;transition:all .2s;position:relative}
+.cvc:hover{border-color:var(--bdr2)}
+.cvc.on{border-color:rgba(230,48,0,.45);background:rgba(230,48,0,.07)}
+.cvc-ico{font-size:13px;flex-shrink:0}
+.cvc-info{flex:1;min-width:0}
+.cvc-name{font-size:11px;font-weight:600;color:var(--w);overflow:hidden;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.cvc-sub{font-size:10px;color:var(--gr)}
+.cvc-del{background:none;border:none;color:var(--gr);cursor:pointer;font-size:12px;padding:2px;flex-shrink:0;transition:color .15s}
+.cvc-del:hover{color:var(--danger)}
+.cvc-act{display:inline-block;background:rgba(0,200,83,.13);border:1px solid rgba(0,200,83,.28);color:var(--success);font-size:9px;font-weight:700;padding:0 5px;border-radius:4px;margin-left:4px;vertical-align:middle}
+/* Platform logins — single column, full names */
+.pf-grid{display:flex;flex-direction:column;gap:4px;padding:0 8px 8px}
+.pf-btn{display:flex;align-items:center;gap:7px;padding:5px 8px;border-radius:8px;background:var(--panel2);border:1px solid var(--bdr);cursor:pointer;transition:all .18s}
+.pf-btn:hover{border-color:var(--bdr2)}
+.pf-logo{width:20px;height:20px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;color:#fff;flex-shrink:0}
+.pf-info{flex:1}
+.pf-name{font-size:11px;font-weight:700;color:var(--l)}
+.pf-dot{width:5px;height:5px;border-radius:50%;flex-shrink:0}
+.pf-dot.ok{background:var(--success)}
+.pf-dot.no{background:var(--gr)}
+.pf-action{font-size:9px;font-weight:700;padding:2px 7px;border-radius:4px;border:none;cursor:pointer;white-space:nowrap;flex-shrink:0}
+.pf-action.login{background:rgba(255,102,51,.15);color:var(--orange);border:1px solid rgba(255,102,51,.3)}
+.pf-action.logout{background:rgba(255,77,77,.1);color:var(--danger);border:1px solid rgba(255,77,77,.25)}
+/* colors */
+.c-li{background:#0077b5}.c-in{background:#003A9B}.c-rz{background:#059669}
+.c-ro{background:#c0392b}.c-wf{background:#fb4500}.c-fj{background:#4caf50}.c-mb{background:#8e24aa}
+
+/* ── CENTER ───────────────────────────────── */
+.cp{background:var(--bg);border-right:1px solid var(--bdr);display:flex;flex-direction:column;overflow:hidden;height:100%}
+.cp-body{flex:1;overflow:hidden;padding:10px 12px;display:flex;flex-direction:column;gap:7px}
+/* first 3 rows never shrink — only last row (direct+schedule) flexes */
+.cp-body > .row2:first-child,
+.cp-body > .box { flex-shrink:0 }
+/* row */
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:7px}
+/* compact section box — overflow visible so content never clips */
+.box{background:var(--panel);border-radius:10px;border:1px solid var(--bdr)}
+.box-hd{padding:7px 12px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between}
+.box-hd h4{font-family:var(--fh);font-size:11px;font-weight:700;color:var(--gr);text-transform:uppercase;letter-spacing:.5px;display:flex;align-items:center;gap:5px}
+.box-bd{padding:8px 12px}
+/* type tabs */
+.ttabs{display:flex;gap:5px}
+.ttab{flex:1;padding:6px 4px;border-radius:7px;border:1px solid var(--bdr);background:var(--panel2);text-align:center;cursor:pointer;font-size:11px;font-weight:600;color:var(--gr);transition:all .18s;white-space:nowrap}
+.ttab:hover{color:var(--l)}
+.ttab.on{border-color:rgba(230,48,0,.45);background:rgba(230,48,0,.09);color:var(--orange)}
+/* positions */
+.ptags{display:flex;flex-wrap:wrap;gap:5px;padding:5px;background:var(--panel2);border:1px solid var(--bdr);border-radius:8px;min-height:30px;margin-bottom:6px}
+.ptag{display:flex;align-items:center;gap:4px;background:rgba(255,102,51,.1);border:1px solid rgba(255,102,51,.22);color:var(--orange);font-size:11px;font-weight:600;padding:3px 8px;border-radius:5px}
+.ptag-x{cursor:pointer;font-size:12px;opacity:.6}
+.ptag-x:hover{opacity:1;color:var(--danger)}
+.ptag.sug{background:rgba(79,195,247,.08);border-color:rgba(79,195,247,.2);color:var(--info);cursor:pointer}
+.ptag.sug:hover{background:rgba(79,195,247,.16)}
+.irow{display:flex;gap:6px}
+.inp{background:var(--panel2);border:1px solid var(--bdr);border-radius:8px;padding:7px 11px;font-size:12px;color:var(--w);font-family:var(--fb);outline:none;transition:border .18s;width:100%}
+.inp:focus{border-color:rgba(230,48,0,.45)}
+.inp::placeholder{color:var(--gr)}
+.btn{padding:7px 13px;border-radius:8px;border:none;cursor:pointer;font-family:var(--fh);font-size:12px;font-weight:700;transition:all .18s;white-space:nowrap;flex-shrink:0}
+.btn-o{background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;box-shadow:0 3px 12px var(--glow)}
+.btn-o:hover{transform:translateY(-1px)}
+.btn-g{background:rgba(255,255,255,.05);color:var(--l);border:1px solid var(--bdr)}
+.btn-g:hover{background:rgba(255,255,255,.09)}
+.btn-sm{padding:5px 10px;font-size:11px}
+/* platform toggles */
+.ptoggles{display:flex;flex-wrap:wrap;gap:5px}
+.ptog{display:flex;align-items:center;gap:5px;padding:5px 10px;border-radius:7px;border:1px solid var(--bdr);background:var(--panel2);cursor:pointer;font-size:11px;font-weight:600;color:var(--gr);transition:all .18s}
+.ptog:hover{color:var(--l);border-color:var(--bdr2)}
+.ptog.on{border-color:rgba(255,102,51,.35);background:rgba(255,102,51,.07);color:var(--orange)}
+.ptog-dot{width:6px;height:6px;border-radius:50%;background:var(--gr);flex-shrink:0}
+.ptog.on .ptog-dot{background:var(--orange)}
+.ptog-ok{width:6px;height:6px;border-radius:50%;background:var(--success);display:none;flex-shrink:0}
+.ptog.sess .ptog-ok{display:block}
+/* count */
+.copts{display:flex;gap:5px;flex-wrap:wrap}
+.copt{padding:5px 10px;border-radius:7px;border:1px solid var(--bdr);background:var(--panel2);color:var(--gr);font-size:11px;font-weight:600;cursor:pointer;transition:all .18s}
+.copt:hover{border-color:var(--bdr2);color:var(--l)}
+.copt.on{border-color:rgba(255,102,51,.45);background:rgba(255,102,51,.09);color:var(--orange)}
+/* toggle */
+.trow{display:flex;align-items:center;gap:8px}
+.tgl{position:relative;width:34px;height:18px;cursor:pointer;flex-shrink:0}
+.tgl input{opacity:0;width:0;height:0}
+.tgl-sl{position:absolute;inset:0;background:#2a2435;border-radius:9px;transition:.25s;border:1px solid var(--bdr)}
+.tgl-sl::before{content:'';position:absolute;width:12px;height:12px;left:2px;bottom:2px;background:var(--gr);border-radius:50%;transition:.25s}
+input:checked+.tgl-sl{background:rgba(230,48,0,.28);border-color:rgba(230,48,0,.5)}
+input:checked+.tgl-sl::before{transform:translateX(16px);background:var(--orange)}
+.tgl-lbl{font-size:11px;color:var(--l);font-weight:500}
+/* schedule opts (hidden by default) */
+.sched-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:7px}
+.sched-grid label{display:block;font-size:10px;color:var(--gr);font-weight:600;margin-bottom:3px;text-transform:uppercase;letter-spacing:.4px}
+/* direct links textarea */
+#directLinks{resize:none;line-height:1.5;font-size:11px}
+/* start button */
+.start-bar{padding:8px 12px;border-top:1px solid var(--bdr);flex-shrink:0;display:flex;flex-direction:column;gap:6px}
+#startBtn{width:100%;padding:11px;font-size:14px;font-weight:800;border-radius:10px;border:none;cursor:pointer;font-family:var(--fh);transition:all .3s;background:linear-gradient(135deg,var(--red),var(--orange));color:#fff;box-shadow:0 3px 18px var(--glow)}
+#startBtn:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 6px 24px var(--glow)}
+#startBtn:disabled{opacity:.5;cursor:not-allowed;transform:none}
+#startBtn.run{animation:gpulse 1.8s infinite}
+@keyframes gpulse{0%,100%{box-shadow:0 3px 18px rgba(230,48,0,.4)}50%{box-shadow:0 3px 30px rgba(230,48,0,.7)}}
+#stopBtn{width:100%;padding:8px;font-size:12px;font-weight:700;border-radius:8px;border:1px solid rgba(255,77,77,.3);background:rgba(255,77,77,.09);color:var(--danger);cursor:pointer;font-family:var(--fh);transition:all .18s;display:none}
+#stopBtn:hover{background:rgba(255,77,77,.18)}
+.prog-wrap{display:none;padding:0 12px 6px}
+.prog-bar{height:3px;background:var(--panel2);border-radius:3px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--red),var(--orange));border-radius:3px;transition:width .4s;width:0}
+.prog-lbl{display:flex;justify-content:space-between;font-size:10px;color:var(--gr);margin-bottom:4px}
+
+/* ── RIGHT LOG PANEL ──────────────────────── */
+.rp{background:var(--panel);display:flex;flex-direction:column;overflow:hidden;height:100%}
+.rp-hd{padding:9px 14px;border-bottom:1px solid var(--bdr);display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.rp-hd h3{font-family:var(--fh);font-size:11px;font-weight:700;color:var(--gr);text-transform:uppercase;letter-spacing:.6px}
+.log-tabs{display:flex;gap:3px}
+.ltab{padding:3px 9px;border-radius:5px;font-size:11px;font-weight:700;cursor:pointer;color:var(--gr);transition:all .18s}
+.ltab.on{background:rgba(255,255,255,.07);color:var(--l)}
+.stats-row{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;padding:8px;border-bottom:1px solid var(--bdr);flex-shrink:0}
+.sbox{background:var(--panel2);border-radius:8px;padding:8px 6px;text-align:center;border:1px solid var(--bdr)}
+.sbox .n{font-family:var(--fh);font-size:20px;font-weight:800;line-height:1}
+.sbox .l{font-size:9px;color:var(--gr);margin-top:2px;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+.sbox.g .n{color:var(--success)}
+.sbox.r .n{color:var(--danger)}
+.sbox.b .n{color:var(--info)}
+/* log entries — overflow hidden, no scroll */
+.log-body{flex:1;overflow:hidden;padding:6px;display:flex;flex-direction:column;gap:3px}
+.le{display:flex;gap:7px;padding:6px 8px;border-radius:7px;font-size:11px;line-height:1.4;flex-shrink:0}
+.le-ico{width:18px;height:18px;border-radius:4px;display:flex;align-items:center;justify-content:center;font-size:10px;flex-shrink:0;margin-top:1px}
+.le-ico.s{background:rgba(0,200,83,.13);color:var(--success)}
+.le-ico.e{background:rgba(255,77,77,.13);color:var(--danger)}
+.le-ico.i{background:rgba(79,195,247,.13);color:var(--info)}
+.le-ico.w{background:rgba(255,215,0,.13);color:var(--warn)}
+.le-ico.f{background:rgba(255,140,0,.13);color:#ff8c00}
+.le-txt{flex:1;color:var(--l)}
+.le-txt strong{color:var(--w);font-weight:600}
+.le-ts{font-size:9px;color:var(--gr);flex-shrink:0;margin-top:2px}
+/* history view */
+.hist-view{display:none;flex:1;overflow:hidden;flex-direction:column}
+.hi{display:flex;align-items:center;gap:8px;padding:7px 8px;border-bottom:1px solid var(--bdr);font-size:11px;flex-shrink:0}
+.hi-logo{width:22px;height:22px;border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:800;flex-shrink:0}
+.hi-info{flex:1;min-width:0}
+.hi-title{font-weight:600;color:var(--w);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hi-co{color:var(--gr);font-size:10px}
+.hi-time{font-size:9px;color:var(--gr);flex-shrink:0}
+/* empty */
+.empty{display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:6px;color:var(--gr);font-size:12px;text-align:center;padding:20px}
+.empty-ico{font-size:28px}
+/* toast */
+.toast{position:fixed;top:58px;right:16px;padding:10px 16px;border-radius:9px;font-size:12px;font-weight:600;z-index:999;opacity:0;transform:translateY(-8px);transition:all .25s;pointer-events:none}
+.toast.show{opacity:1;transform:none}
+.toast.success{background:#0a2e1a;border:1px solid rgba(0,200,83,.4);color:var(--success)}
+.toast.error{background:#2e0a0a;border:1px solid rgba(255,77,77,.4);color:var(--danger)}
+.toast.info{background:#0a1e2e;border:1px solid rgba(79,195,247,.4);color:var(--info)}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="tb">
+  <div class="tb-l">
+    <a href="index.html" class="tb-logo">
+      <div class="logo-box">A</div>
+      <span class="logo-nm">Axon<span>CV</span></span>
+    </a>
+    <div class="tb-tag">Auto Apply Hub</div>
+  </div>
+  <div class="tb-c">
+    <div class="chip g"><div class="dot-pulse" id="runDot"></div><span id="statApplied">0 Applied</span></div>
+    <div class="chip r" id="chipFailed"><span id="statFailed">0 Skipped</span></div>
+    <div class="chip b"><span id="statStatus">Ready</span></div>
+  </div>
+  <div class="tb-r">
+    <a href="index.html" class="nb">Home</a>
+    <a href="builder.html" class="nb">Builder</a>
+    <a href="auto-apply.html" class="nb on">Auto Apply</a>
+  </div>
+</div>
+
+<!-- GRID -->
+<div class="grid">
+
+  <!-- ── LEFT PANEL ── -->
+  <div class="lp">
+    <div class="ph"><span class="ph-title">📁 CV Vault</span><span style="font-size:10px;color:var(--gr)" id="cvCount">0 CVs</span></div>
+
+    <!-- Compact upload bar -->
+    <div class="cv-bar" id="uploadArea" onclick="document.getElementById('cvFileInput').click()">
+      <span class="ci">📤</span>
+      <span>Upload CV / Resume (PDF, DOC)</span>
+    </div>
+    <input type="file" id="cvFileInput" accept=".pdf,.doc,.docx,.txt">
+    <div class="cv-list" id="cvList"></div>
+
+    <div class="ph" style="margin-top:0"><span class="ph-title">🔑 Platform Logins</span></div>
+    <div class="pf-grid" id="pfGrid"></div>
+  </div>
+
+  <!-- ── CENTER PANEL ── -->
+  <div class="cp">
+    <div class="cp-body">
+
+      <!-- Row: Job Type + Count -->
+      <div class="row2">
+        <div class="box">
+          <div class="box-hd"><h4>🎯 Apply For</h4></div>
+          <div class="box-bd">
+            <div class="ttabs">
+              <div class="ttab on" onclick="setJobType('internship',this)">🎓 Intern</div>
+              <div class="ttab" onclick="setJobType('job',this)">💼 Job</div>
+              <div class="ttab" onclick="setJobType('both',this)">⚡ Both</div>
+            </div>
+          </div>
+        </div>
+        <div class="box">
+          <div class="box-hd"><h4>🔢 How Many</h4></div>
+          <div class="box-bd">
+            <div class="copts">
+              <div class="copt" onclick="setCount(25,this)">25</div>
+              <div class="copt" onclick="setCount(50,this)">50</div>
+              <div class="copt" onclick="setCount(100,this)">100</div>
+              <div class="copt on" onclick="setCount('unlimited',this)">♾ ∞</div>
+              <div class="copt" onclick="toggleCustomCount(this)" id="coptCustom">…</div>
+            </div>
+            <input class="inp" id="customCountInput" type="number" placeholder="Custom number" min="1" style="display:none;margin-top:6px;font-size:11px;padding:5px 8px">
+          </div>
+        </div>
+      </div>
+
+      <!-- Positions -->
+      <div class="box">
+        <div class="box-hd">
+          <h4>📌 Positions</h4>
+          <button class="btn btn-g btn-sm" onclick="extractFromCV()">From CV</button>
+        </div>
+        <div class="box-bd">
+          <div class="ptags" id="positionTags"><span style="font-size:10px;color:var(--gr)">Add positions below…</span></div>
+          <div class="irow">
+            <input class="inp" id="positionInput" placeholder="e.g. Frontend Dev, Python Intern…" onkeydown="if(event.key==='Enter')addPosition()">
+            <button class="btn btn-o btn-sm" onclick="addPosition()">Add</button>
+          </div>
+          <div id="suggestedWrap" style="display:none;margin-top:6px;display:flex;flex-wrap:wrap;gap:4px" id="suggestedTags"></div>
+        </div>
+      </div>
+
+      <!-- Platforms -->
+      <div class="box">
+        <div class="box-hd"><h4>🌐 Platforms</h4></div>
+        <div class="box-bd"><div class="ptoggles" id="platformToggles"></div></div>
+      </div>
+
+      <!-- Direct Links + Schedule in a row -->
+      <div class="row2" style="flex:1;min-height:0">
+        <div class="box" style="display:flex;flex-direction:column;overflow:hidden;min-height:0">
+          <div class="box-hd" style="background:rgba(79,195,247,.04);border-color:rgba(79,195,247,.2);flex-shrink:0">
+            <h4 style="color:var(--info)">⚡ Direct Links</h4>
+          </div>
+          <div class="box-bd" style="flex:1;display:flex;flex-direction:column;gap:6px;min-height:0">
+            <textarea id="directLinks" class="inp" style="flex:1;resize:none;line-height:1.5;font-size:11px;min-height:0" placeholder="Paste any links — 1 per line:&#10;Google Form URL&#10;LinkedIn post URL&#10;Company apply URL&#10;email@company.com"></textarea>
+            <button class="btn btn-o" onclick="startDirectApply()" id="directApplyBtn" style="width:100%;font-size:12px;padding:8px;flex-shrink:0">⚡ Apply to All Links</button>
+          </div>
+        </div>
+        <div class="box" style="display:flex;flex-direction:column;overflow:hidden;min-height:0">
+          <div class="box-hd" style="flex-shrink:0"><h4>📅 Schedule</h4></div>
+          <div class="box-bd" style="flex:1;display:flex;flex-direction:column;gap:7px;overflow:hidden">
+            <div class="trow" style="flex-shrink:0">
+              <label class="tgl"><input type="checkbox" id="scheduleToggle" onchange="toggleSchedule()"><span class="tgl-sl"></span></label>
+              <span class="tgl-lbl">Auto-schedule daily</span>
+            </div>
+            <div id="schedOpts" style="display:none;flex-direction:column;gap:6px">
+              <div class="sched-grid">
+                <div><label>From</label><input type="date" class="inp" id="schedStart" style="font-size:11px;padding:5px 8px"></div>
+                <div><label>To</label><input type="date" class="inp" id="schedEnd" style="font-size:11px;padding:5px 8px"></div>
+                <div><label>Daily Count</label><input type="number" class="inp" id="schedDaily" placeholder="90" min="1" style="font-size:11px;padding:5px 8px"></div>
+                <div><label>Time</label>
+                  <select class="inp" id="schedHour" style="font-size:11px;padding:5px 8px">
+                    <option value="7">7:00 AM</option>
+                    <option value="8">8:00 AM</option>
+                    <option value="9" selected>9:00 AM</option>
+                    <option value="10">10:00 AM</option>
+                    <option value="12">12:00 PM</option>
+                    <option value="18">6:00 PM</option>
+                    <option value="20">8:00 PM</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Progress + Start -->
+    <div class="prog-wrap" id="progWrap">
+      <div class="prog-lbl"><span id="progLabel">Applying…</span><span id="progPct">0%</span></div>
+      <div class="prog-bar"><div class="prog-fill" id="progFill"></div></div>
+    </div>
+    <div class="start-bar">
+      <button id="startBtn" onclick="startApply()">⚡ Start Auto Apply</button>
+      <button id="stopBtn" onclick="stopApply()">⏹ Stop</button>
+    </div>
+  </div>
+
+  <!-- ── RIGHT LOG PANEL ── -->
+  <div class="rp">
+    <div class="rp-hd">
+      <h3>Live Activity</h3>
+      <div class="log-tabs">
+        <div class="ltab on" onclick="switchTab('log',this)">Log</div>
+        <div class="ltab" onclick="switchTab('history',this)">History</div>
+      </div>
+    </div>
+    <div class="stats-row">
+      <div class="sbox g"><div class="n" id="bigApplied">0</div><div class="l">Applied</div></div>
+      <div class="sbox r"><div class="n" id="bigFailed">0</div><div class="l">Skipped</div></div>
+      <div class="sbox b"><div class="n" id="bigTotal">—</div><div class="l">Target</div></div>
+    </div>
+    <div id="logView" class="log-body">
+      <div class="empty"><div class="empty-ico">🤖</div>Ready to apply.<br>Upload CV → Set positions → Start!</div>
+    </div>
+    <div id="histView" class="hist-view">
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:7px 10px;border-bottom:1px solid var(--bdr);flex-shrink:0">
+        <span style="font-size:11px;color:var(--gr)" id="histCount">0 applications</span>
+        <button class="btn btn-g btn-sm" onclick="clearHistory()">Clear</button>
+      </div>
+      <div id="histList" style="overflow:hidden;flex:1"></div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const API = 'http://localhost:3001';
+let ws = null, activeCvId = null, positions = [];
+let selectedPlatforms = new Set(['linkedin','indeed','rozee']);
+let appliedCount = 0, failedCount = 0, jobType = 'internship', count = 'unlimited';
+let sessions = {}, isRunning = false;
+const MAX_LOG = 9; // max entries visible without scroll
+
+const PM = {
+  linkedin:  {name:'LinkedIn',  logo:'LI', cls:'c-li'},
+  indeed:    {name:'Indeed',    logo:'IN', cls:'c-in'},
+  rozgaar:   {name:'Rozgaar',  logo:'RZ', cls:'c-rz'},
+  rozee:     {name:'Rozee.pk', logo:'RO', cls:'c-ro'},
+  wellfound: {name:'WellFound',logo:'WF', cls:'c-wf'},
+  flexjobs:  {name:'FlexJobs', logo:'FJ', cls:'c-fj'},
+  mustakbil: {name:'Mustakbil',logo:'MB', cls:'c-mb'},
+};
+
+// ─── WebSocket ─────────────────────────────────────────────────────────────
+function connectWS(){
+  try{
+    ws = new WebSocket('ws://localhost:3001');
+    ws.onmessage = e => handleWS(JSON.parse(e.data));
+    ws.onclose = () => setTimeout(connectWS, 3000);
+    ws.onerror = () => {};
+  }catch{}
+}
+function handleWS(msg){
+  if(msg.type==='log') addLog(msg.level, msg.message, msg.data, msg.ts);
+  else if(msg.type==='applied'){ appliedCount=msg.applied; updateStats(); updateProg(msg.applied, msg.total); }
+  else if(msg.type==='failed'){ failedCount=msg.failed; updateStats(); }
+  else if(msg.type==='link_applied'){ appliedCount++; updateStats(); }
+  else if(msg.type==='link_failed'){ failedCount++; updateStats(); }
+  else if(msg.type==='links_done'){
+    document.getElementById('directApplyBtn').textContent='⚡ Apply to All Links';
+    document.getElementById('directApplyBtn').disabled=false;
+    showToast(`Done! Applied: ${msg.applied}/${msg.total} links`, msg.applied>0?'success':'info');
+    loadHistory();
+  }
+  else if(msg.type==='status') handleStatus(msg);
+  else if(msg.type==='session_saved'){ sessions[msg.platform]=true; renderPF(); renderPToggles(); }
+  else if(msg.type==='scheduled') showToast(`Scheduled! ${msg.dailyCount}/day from ${msg.startDate}`, 'info');
+}
+function handleStatus(msg){
+  if(msg.status==='running'){
+    isRunning=true;
+    document.getElementById('startBtn').textContent='⚡ Applying…';
+    document.getElementById('startBtn').classList.add('run');
+    document.getElementById('stopBtn').style.display='block';
+    document.getElementById('runDot').style.display='block';
+    document.getElementById('progWrap').style.display='block';
+    document.getElementById('statStatus').textContent='Running';
+  } else {
+    isRunning=false;
+    document.getElementById('startBtn').textContent='⚡ Start Auto Apply';
+    document.getElementById('startBtn').classList.remove('run');
+    document.getElementById('stopBtn').style.display='none';
+    document.getElementById('runDot').style.display='none';
+    document.getElementById('statStatus').textContent=msg.status==='done'?'Done':'Stopped';
+    if(msg.status==='done') showToast(`Done! Applied: ${msg.applied||appliedCount}`, 'success');
+    loadHistory();
+  }
+}
+
+// ─── CVs ───────────────────────────────────────────────────────────────────
+async function loadCVs(){
+  try{
+    const cvs = await fetch(`${API}/api/cvs`).then(r=>r.json());
+    renderCVs(cvs);
+  }catch{ renderCVs([]); }
+}
+function renderCVs(cvs){
+  const el = document.getElementById('cvList');
+  document.getElementById('cvCount').textContent = cvs.length+' CV'+(cvs.length!==1?'s':'');
+  if(!cvs.length){ el.innerHTML=''; return; }
+  el.innerHTML = cvs.map(cv=>`
+    <div class="cvc ${cv.id===activeCvId?'on':''}" onclick="selectCV('${cv.id}')">
+      <span class="cvc-ico">📄</span>
+      <div class="cvc-info">
+        <div class="cvc-name">${cv.name}${cv.id===activeCvId?'<span class="cvc-act">●</span>':''}</div>
+        <div class="cvc-sub">${cv.parsed?.name||''}</div>
+      </div>
+      <button class="cvc-del" onclick="event.stopPropagation();delCV('${cv.id}')">✕</button>
+    </div>`).join('');
+  if(!activeCvId && cvs.length) selectCV(cvs[cvs.length-1].id);
+}
+function selectCV(id){
+  activeCvId=id;
+  document.querySelectorAll('.cvc').forEach(c=>{
+    const isThis = c.onclick?.toString().includes(`'${id}'`);
+    c.classList.toggle('on', isThis);
+  });
+  loadCVs();
+}
+async function delCV(id){
+  if(!confirm('Delete this CV?')) return;
+  await fetch(`${API}/api/cv/${id}`,{method:'DELETE'});
+  if(activeCvId===id) activeCvId=null;
+  loadCVs();
+}
+document.getElementById('cvFileInput').addEventListener('change', async e=>{
+  const file=e.target.files[0]; if(!file) return;
+  showToast('Uploading CV…','info');
+  const fd=new FormData(); fd.append('cv',file);
+  try{
+    const res=await fetch(`${API}/api/cv/upload`,{method:'POST',body:fd}).then(r=>r.json());
+    if(res.success){
+      activeCvId=res.cv.id;
+      showToast('CV uploaded!','success');
+      loadCVs();
+      if(res.cv.parsed?.titles?.length) showSuggested(res.cv.parsed.titles);
+    } else showToast(res.error||'Upload failed','error');
+  }catch{ showToast('Server not running. Run: node server.js','error'); }
+  e.target.value='';
+});
+const ua=document.getElementById('uploadArea');
+ua.addEventListener('dragover',e=>{e.preventDefault();ua.classList.add('drag')});
+ua.addEventListener('dragleave',()=>ua.classList.remove('drag'));
+ua.addEventListener('drop',e=>{
+  e.preventDefault();ua.classList.remove('drag');
+  const f=e.dataTransfer.files[0];
+  if(f){document.getElementById('cvFileInput').files=e.dataTransfer.files;document.getElementById('cvFileInput').dispatchEvent(new Event('change'));}
+});
+
+// ─── Positions ─────────────────────────────────────────────────────────────
+function addPosition(val){
+  const inp=document.getElementById('positionInput');
+  const p=(val||inp.value).trim();
+  if(!p||positions.includes(p)){inp.value='';return;}
+  positions.push(p); renderPositions(); inp.value='';
+}
+function removePosition(p){ positions=positions.filter(x=>x!==p); renderPositions(); }
+function renderPositions(){
+  const el=document.getElementById('positionTags');
+  if(!positions.length){el.innerHTML='<span style="font-size:10px;color:var(--gr)">Add positions below…</span>';return;}
+  el.innerHTML=positions.map(p=>`<div class="ptag">${p}<span class="ptag-x" onclick="removePosition('${p}')">×</span></div>`).join('');
+}
+function showSuggested(titles){
+  const w=document.getElementById('suggestedWrap');
+  if(!titles.length||!w) return;
+  w.style.display='flex';
+  w.innerHTML=titles.map(t=>`<div class="ptag sug" onclick="addPosition('${t}')">+ ${t}</div>`).join('');
+}
+async function extractFromCV(){
+  if(!activeCvId){showToast('Select a CV first','error');return;}
+  try{
+    const cvs=await fetch(`${API}/api/cvs`).then(r=>r.json());
+    const cv=cvs.find(c=>c.id===activeCvId);
+    if(!cv?.parsed?.titles?.length){showToast('No positions found in CV','info');return;}
+    cv.parsed.titles.forEach(t=>addPosition(t));
+    showToast('Positions extracted!','success');
+  }catch{showToast('Error reading CV','error');}
+}
+
+// ─── Platform logins ────────────────────────────────────────────────────────
+async function loadSessions(){
+  try{sessions=await fetch(`${API}/api/sessions`).then(r=>r.json());}catch{sessions={};}
+  renderPF(); renderPToggles();
+}
+function renderPF(){
+  const el=document.getElementById('pfGrid');
+  el.innerHTML=Object.entries(PM).map(([id,m])=>{
+    const ok=sessions[id];
+    return `<div class="pf-btn">
+      <div class="pf-logo ${m.cls}">${m.logo}</div>
+      <div class="pf-info">
+        <div class="pf-name">${m.name}</div>
+      </div>
+      <div class="pf-dot ${ok?'ok':'no'}"></div>
+      ${ok
+        ?`<button class="pf-action logout" onclick="doLogout('${id}')">Logout</button>`
+        :`<button class="pf-action login" onclick="doLogin('${id}')">Login</button>`}
+    </div>`;
+  }).join('');
+}
+function renderPToggles(){
+  const el=document.getElementById('platformToggles');
+  el.innerHTML=Object.entries(PM).map(([id,m])=>`
+    <div class="ptog ${selectedPlatforms.has(id)?'on':''} ${sessions[id]?'sess':''}" onclick="togglePlatform('${id}',this)">
+      <div class="ptog-dot"></div>
+      <div class="ptog-ok"></div>
+      ${m.name}
+    </div>`).join('');
+}
+function togglePlatform(id,el){
+  if(selectedPlatforms.has(id)) selectedPlatforms.delete(id); else selectedPlatforms.add(id);
+  el.classList.toggle('on');
+}
+async function doLogin(platform){
+  showToast(`Opening ${PM[platform].name} login…`,'info');
+  try{
+    const res=await fetch(`${API}/api/login/${platform}`,{method:'POST'}).then(r=>r.json());
+    if(res.success){sessions[platform]=true;renderPF();renderPToggles();showToast(`${PM[platform].name} logged in!`,'success');}
+    else showToast(res.error,'error');
+  }catch{showToast('Server error. Run: node server.js','error');}
+}
+async function doLogout(platform){
+  await fetch(`${API}/api/sessions/${platform}`,{method:'DELETE'});
+  sessions[platform]=false; renderPF(); renderPToggles();
+  showToast(`${PM[platform].name} logged out`,'info');
+}
+
+// ─── Count & Schedule ───────────────────────────────────────────────────────
+function setCount(val,el){
+  count=val;
+  document.querySelectorAll('.copt').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  document.getElementById('customCountInput').style.display='none';
+}
+function toggleCustomCount(el){
+  document.querySelectorAll('.copt').forEach(e=>e.classList.remove('on'));
+  el.classList.add('on');
+  const inp=document.getElementById('customCountInput');
+  inp.style.display=inp.style.display==='none'?'block':'none';
+  inp.oninput=()=>{count=inp.value||'10';};
+  count=inp.value||'10';
+}
+function setJobType(type,el){
+  jobType=type;
+  document.querySelectorAll('.ttab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+}
+function toggleSchedule(){
+  const on=document.getElementById('scheduleToggle').checked;
+  const el=document.getElementById('schedOpts');
+  el.style.display=on?'flex':'none';
+  el.style.flexDirection='column';
+  if(on){
+    const today=new Date().toISOString().split('T')[0];
+    document.getElementById('schedStart').value=today;
+    document.getElementById('schedEnd').value=new Date(Date.now()+30*86400000).toISOString().split('T')[0];
+    document.getElementById('schedDaily').value='90';
+  }
+}
+
+// ─── Apply ─────────────────────────────────────────────────────────────────
+async function startApply(){
+  if(!activeCvId){showToast('Upload a CV first!','error');return;}
+  if(!positions.length){showToast('Add at least one position!','error');return;}
+  if(!selectedPlatforms.size){showToast('Select at least one platform!','error');return;}
+  const schedEnabled=document.getElementById('scheduleToggle').checked;
+  const schedule=schedEnabled?{
+    enabled:true,
+    startDate:document.getElementById('schedStart').value,
+    endDate:document.getElementById('schedEnd').value,
+    dailyCount:document.getElementById('schedDaily').value||'90',
+    timeHour:document.getElementById('schedHour').value,
+  }:{enabled:false};
+  appliedCount=0;failedCount=0;updateStats();
+  document.getElementById('logView').innerHTML='';
+  addLog('info','Starting Auto Apply…',{});
+  try{
+    const res=await fetch(`${API}/api/apply/start`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({cvId:activeCvId,positions,platforms:[...selectedPlatforms],count:count.toString(),schedule,jobType})
+    }).then(r=>r.json());
+    if(!res.success) showToast(res.error||'Start failed','error');
+  }catch{showToast('Cannot connect. Run: node server.js','error');}
+}
+async function stopApply(){
+  try{await fetch(`${API}/api/apply/stop`,{method:'POST'});}catch{}
+}
+
+// ─── Direct Links ───────────────────────────────────────────────────────────
+async function startDirectApply(){
+  if(!activeCvId){showToast('Upload a CV first!','error');return;}
+  const raw=document.getElementById('directLinks').value.trim();
+  if(!raw){showToast('Paste some links first!','error');return;}
+  const links=raw.split('\n').map(l=>l.trim()).filter(l=>l.length>3);
+  if(!links.length){showToast('No valid links','error');return;}
+  const btn=document.getElementById('directApplyBtn');
+  btn.textContent=`⏳ Processing ${links.length} links…`;
+  btn.disabled=true;
+  document.getElementById('logView').innerHTML='';
+  addLog('info',`Processing ${links.length} links…`,{});
+  try{
+    const res=await fetch(`${API}/api/apply/links`,{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({links,cvId:activeCvId})
+    }).then(r=>r.json());
+    if(!res.success){btn.textContent='⚡ Apply to All Links';btn.disabled=false;showToast(res.error||'Error','error');}
+  }catch{
+    btn.textContent='⚡ Apply to All Links';btn.disabled=false;
+    showToast('Server not running. Run: node server.js','error');
+  }
+}
+
+// ─── Log (max entries, no scroll needed) ───────────────────────────────────
+const ICONS={success:'✓',error:'✕',info:'ℹ',warn:'⚠',fail:'↻'};
+function addLog(level,message,data,ts){
+  const el=document.getElementById('logView');
+  const empty=el.querySelector('.empty'); if(empty) empty.remove();
+  // Limit to MAX_LOG entries
+  while(el.children.length>=MAX_LOG) el.removeChild(el.lastChild);
+  const e=document.createElement('div');
+  e.className='le';
+  const co=data?.company?`<span style="color:var(--gr)"> · ${data.company}</span>`:'';
+  e.innerHTML=`<div class="le-ico ${level}">${ICONS[level]||'ℹ'}</div>
+    <div class="le-txt"><strong>${message}</strong>${co}</div>
+    <div class="le-ts">${ts||new Date().toLocaleTimeString()}</div>`;
+  el.insertBefore(e,el.firstChild);
+}
+
+// ─── Stats ─────────────────────────────────────────────────────────────────
+function updateStats(){
+  document.getElementById('statApplied').textContent=`${appliedCount} Applied`;
+  document.getElementById('statFailed').textContent=`${failedCount} Skipped`;
+  document.getElementById('bigApplied').textContent=appliedCount;
+  document.getElementById('bigFailed').textContent=failedCount;
+  if(failedCount>0) document.getElementById('chipFailed').style.display='flex';
+}
+function updateProg(applied,total){
+  const lbl=document.getElementById('progLabel');
+  const pct=document.getElementById('progPct');
+  const fill=document.getElementById('progFill');
+  document.getElementById('bigTotal').textContent=total==='∞'||total===Infinity?'∞':total;
+  if(total==='∞'||total===Infinity){lbl.textContent=`Applied: ${applied}`;pct.textContent='∞';fill.style.width='100%';}
+  else{const p=Math.min(100,Math.round((applied/total)*100));lbl.textContent=`${applied}/${total}`;pct.textContent=p+'%';fill.style.width=p+'%';}
+}
+
+// ─── History ────────────────────────────────────────────────────────────────
+async function loadHistory(){
+  try{
+    const hist=await fetch(`${API}/api/history`).then(r=>r.json());
+    document.getElementById('histCount').textContent=`${hist.length} applications`;
+    const el=document.getElementById('histList');
+    if(!hist.length){el.innerHTML='<div class="empty"><div class="empty-ico">📭</div>No applications yet</div>';return;}
+    el.innerHTML=hist.slice(0,12).map(h=>{
+      const m=PM[h.platform]||{logo:'?',cls:'c-li'};
+      return `<div class="hi">
+        <div class="hi-logo ${m.cls}">${m.logo}</div>
+        <div class="hi-info"><div class="hi-title">${h.title||'Unknown'}</div><div class="hi-co">${h.company||''}</div></div>
+        <div class="hi-time">${h.appliedAt?new Date(h.appliedAt).toLocaleDateString():''}</div>
+      </div>`;
+    }).join('');
+  }catch{}
+}
+async function clearHistory(){
+  if(!confirm('Clear history?')) return;
+  await fetch(`${API}/api/history`,{method:'DELETE'}); loadHistory();
+}
+function switchTab(tab,el){
+  document.querySelectorAll('.ltab').forEach(t=>t.classList.remove('on')); el.classList.add('on');
+  const lv=document.getElementById('logView'),hv=document.getElementById('histView');
+  if(tab==='log'){lv.style.display='flex';hv.style.display='none';}
+  else{lv.style.display='none';hv.style.display='flex';loadHistory();}
+}
+
+// ─── Toast ──────────────────────────────────────────────────────────────────
+let toastT;
+function showToast(msg,type='info'){
+  const el=document.getElementById('toast');
+  el.textContent=msg; el.className=`toast ${type} show`;
+  clearTimeout(toastT); toastT=setTimeout(()=>el.classList.remove('show'),3500);
+}
+
+// ─── Init ───────────────────────────────────────────────────────────────────
+async function init(){
+  connectWS();
+  await loadCVs();
+  await loadSessions();
+  const today=new Date().toISOString().split('T')[0];
+  document.getElementById('schedStart').value=today;
+  document.getElementById('schedEnd').value=new Date(Date.now()+30*86400000).toISOString().split('T')[0];
+}
+init();
+</script>
+</body>
+</html>

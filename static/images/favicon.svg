@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="35%" r="65%">
+      <stop offset="0%" stop-color="#1a0035"/>
+      <stop offset="100%" stop-color="#030008"/>
+    </radialGradient>
+    <linearGradient id="stroke-g" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ff0040"/>
+      <stop offset="100%" stop-color="#ff4488"/>
+    </linearGradient>
+    <linearGradient id="fill-g" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="rgba(255,0,64,0.18)"/>
+      <stop offset="100%" stop-color="rgba(255,0,64,0.04)"/>
+    </linearGradient>
+    <filter id="red-glow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="1.2" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <filter id="cyan-glow" x="-60%" y="-60%" width="220%" height="220%">
+      <feGaussianBlur stdDeviation="1" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="32" height="32" rx="7" fill="url(#bg)"/>
+
+  <!-- Subtle inner glow at top center -->
+  <ellipse cx="16" cy="6" rx="8" ry="5" fill="rgba(255,0,64,0.07)"/>
+
+  <!-- Triangle fill -->
+  <path d="M16 5 L29 28 H3 Z" fill="url(#fill-g)"/>
+
+  <!-- Outer triangle — red gradient stroke -->
+  <path d="M16 5 L29 28 H3 Z" fill="none"
+        stroke="url(#stroke-g)" stroke-width="1.9"
+        stroke-linejoin="round" filter="url(#red-glow)"/>
+
+  <!-- Inner triangle — subtle depth -->
+  <path d="M16 10 L25.5 27 H6.5 Z" fill="none"
+        stroke="rgba(255,0,64,0.22)" stroke-width="0.7"
+        stroke-linejoin="round"/>
+
+  <!-- Cyan crossbar -->
+  <line x1="10" y1="20" x2="22" y2="20"
+        stroke="#00d4ff" stroke-width="1.9"
+        stroke-linecap="round" filter="url(#cyan-glow)"/>
+
+  <!-- Corner nodes — cyan dots -->
+  <circle cx="3" cy="28" r="1.4" fill="#00d4ff" filter="url(#cyan-glow)"/>
+  <circle cx="29" cy="28" r="1.4" fill="#00d4ff" filter="url(#cyan-glow)"/>
+
+  <!-- Apex node — bright red -->
+  <circle cx="16" cy="5" r="2" fill="#ff0040" filter="url(#red-glow)"/>
+  <circle cx="16" cy="5" r="1" fill="#ff7799"/>
+</svg>

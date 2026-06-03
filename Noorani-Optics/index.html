@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Noorani Optics — AI-Powered Eyewear Store</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#04050a;--card:#0a0c15;--purple:#6200ea;--violet:#aa00ff;--pink:#e040fb;--gold:#ffc400;--w:#f0edf8;--gr:#7a7a9a;--glow:rgba(98,0,234,0.3)}
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--w);overflow-x:hidden;-webkit-font-smoothing:antialiased}
+.bg-mesh{position:fixed;inset:0;z-index:0;pointer-events:none;
+  background:radial-gradient(ellipse 70% 60% at 10% 20%,rgba(98,0,234,0.2) 0%,transparent 60%),
+    radial-gradient(ellipse 60% 50% at 90% 80%,rgba(224,64,251,0.12) 0%,transparent 60%),
+    radial-gradient(ellipse 50% 40% at 50% 50%,rgba(255,196,0,0.04) 0%,transparent 60%)}
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(4,5,10,0.88);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.07)}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--w);font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:18px}
+.nav-logo span{background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.back-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:var(--w);padding:9px 20px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;transition:all .3s}
+.back-btn:hover{background:rgba(98,0,234,0.15);border-color:var(--purple)}
+
+.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 5% 80px;position:relative;z-index:1}
+.badge{display:inline-flex;align-items:center;gap:8px;background:rgba(98,0,234,0.15);border:1px solid rgba(98,0,234,0.4);color:#cc88ff;padding:8px 20px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px}
+.bdot{width:7px;height:7px;border-radius:50%;background:#cc88ff;animation:p2 2s infinite}
+@keyframes p2{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(2.2);opacity:.3}}
+.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,7vw,80px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:24px}
+.grad{background:linear-gradient(135deg,var(--purple) 0%,var(--violet) 40%,var(--pink) 80%,var(--gold) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.hero p{font-size:clamp(15px,2vw,19px);color:var(--gr);line-height:1.8;max-width:600px;margin:0 auto 40px}
+.cta-group{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-bottom:60px}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;padding:15px 36px;border-radius:12px;font-size:15px;font-weight:800;text-decoration:none;transition:all .3s;box-shadow:0 0 50px rgba(98,0,234,0.4)}
+.btn-primary:hover{transform:translateY(-4px);box-shadow:0 0 80px rgba(98,0,234,0.6)}
+.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);color:var(--w);padding:15px 36px;border-radius:12px;font-size:15px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:all .3s}
+.btn-ghost:hover{border-color:rgba(170,0,255,.4);transform:translateY(-4px)}
+
+/* Store mockup */
+.store-wrap{width:100%;max-width:920px;margin:0 auto;background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,.7),0 0 100px rgba(98,0,234,0.12)}
+.store-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 24px;background:rgba(0,0,0,.4);border-bottom:1px solid rgba(255,255,255,.06)}
+.store-brand{font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:18px;letter-spacing:1px}
+.store-brand span{background:linear-gradient(135deg,var(--purple),var(--pink));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.store-links{display:flex;gap:20px;font-size:12px;color:var(--gr)}
+.store-links span{cursor:pointer;transition:.2s}.store-links span:hover{color:var(--w)}
+.store-body{padding:28px}
+.store-hero-banner{background:linear-gradient(135deg,rgba(98,0,234,0.3),rgba(224,64,251,0.2));border:1px solid rgba(98,0,234,0.3);border-radius:16px;padding:32px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.sbh-text h2{font-family:'Space Grotesk',sans-serif;font-size:clamp(18px,3vw,28px);font-weight:800;margin-bottom:8px}
+.sbh-text p{color:var(--gr);font-size:13px;margin-bottom:16px}
+.sbh-btn{display:inline-block;background:linear-gradient(135deg,var(--purple),var(--pink));color:#fff;padding:10px 24px;border-radius:10px;font-size:13px;font-weight:700;text-decoration:none}
+.sbh-glasses{font-size:60px;opacity:.7}
+.products-title{font-family:'Space Grotesk',sans-serif;font-size:14px;font-weight:700;color:var(--gr);text-transform:uppercase;letter-spacing:1px;margin-bottom:16px}
+.products-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px}
+.prod-card{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;overflow:hidden;transition:all .3s;cursor:pointer}
+.prod-card:hover{border-color:rgba(98,0,234,.4);transform:translateY(-4px)}
+.prod-img{width:100%;height:100px;display:flex;align-items:center;justify-content:center;font-size:40px;background:rgba(255,255,255,.03)}
+.prod-info{padding:10px}
+.prod-name{font-size:12px;font-weight:600;margin-bottom:4px}
+.prod-price{font-size:13px;font-weight:800;color:#cc88ff}
+.prod-price s{color:var(--gr);font-size:11px;font-weight:400;margin-left:4px}
+
+/* Features */
+.features{padding:100px 5%;position:relative;z-index:1}
+.sec-tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:#cc88ff;margin-bottom:12px;display:block}
+.sec-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,5vw,52px);font-weight:800;margin-bottom:16px;line-height:1.1}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1100px;margin:40px auto 0}
+.feat-card{background:var(--card);border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:28px;transition:all .3s}
+.feat-card:hover{border-color:rgba(98,0,234,.35);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,.4)}
+.feat-icon{font-size:32px;margin-bottom:16px}
+.feat-card h3{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px}
+.feat-card p{color:var(--gr);font-size:14px;line-height:1.7}
+.feat-tag{display:inline-block;background:rgba(170,0,255,.08);color:#cc88ff;border:1px solid rgba(170,0,255,.2);padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;margin-top:12px;letter-spacing:.5px;text-transform:uppercase}
+
+.tech{padding:60px 5%;position:relative;z-index:1;text-align:center}
+.tech-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:800px;margin:24px auto 0}
+.tech-pill{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600;color:var(--w);transition:all .2s}
+.tech-pill:hover{border-color:#cc88ff;color:#cc88ff;background:rgba(170,0,255,.08)}
+
+.note-section{padding:40px 5% 80px;position:relative;z-index:1;text-align:center}
+.note-box{display:inline-block;background:rgba(98,0,234,.1);border:1px solid rgba(98,0,234,.3);border-radius:16px;padding:24px 40px;max-width:600px}
+.note-box p{color:var(--gr);font-size:15px;line-height:1.7}
+.note-box strong{color:#cc88ff}
+
+footer{text-align:center;padding:40px 5%;border-top:1px solid rgba(255,255,255,.07);color:var(--gr);font-size:13px;position:relative;z-index:1}
+footer a{color:#cc88ff;text-decoration:none}
+
+@media(max-width:600px){.store-links{display:none}.store-hero-banner{flex-direction:column}.sbh-glasses{display:none}}
+</style>
+</head>
+<body>
+<div class="bg-mesh"></div>
+
+<nav>
+  <a href="../index.html" class="nav-logo">AXON <span>SYSTEMS</span></a>
+  <a href="../index.html" class="back-btn">← Back to Portfolio</a>
+</nav>
+
+<section class="hero">
+  <div class="badge"><div class="bdot"></div>AI E-COMMERCE · OPTICS STORE</div>
+  <h1><span class="grad">Noorani</span><br>Optics</h1>
+  <p>A fully AI-powered Next.js e-commerce platform for an optics store — smart product catalog, virtual try-on technology, admin dashboard, and seamless shopping experience.</p>
+  <div class="cta-group">
+    <a href="mailto:info@axonsystems.com?subject=Noorani Optics Demo Request" class="btn-primary">👓 Request Live Demo</a>
+    <a href="../index.html#portfolio" class="btn-ghost">← Other Projects</a>
+  </div>
+
+  <!-- Store Mockup -->
+  <div class="store-wrap">
+    <div class="store-nav">
+      <div class="store-brand">NOORANI <span>OPTICS</span></div>
+      <div class="store-links"><span>Home</span><span>Eyeglasses</span><span>Sunglasses</span><span>Brands</span><span>Cart 🛒</span></div>
+    </div>
+    <div class="store-body">
+      <div class="store-hero-banner">
+        <div class="sbh-text">
+          <h2>Premium Eyewear,<br>AI-Personalized</h2>
+          <p>Virtual try-on · Smart recommendations · Fast delivery</p>
+          <a href="#" class="sbh-btn">Shop Now →</a>
+        </div>
+        <div class="sbh-glasses">👓</div>
+      </div>
+      <div class="products-title">Featured Products</div>
+      <div class="products-grid">
+        <div class="prod-card"><div class="prod-img">🕶️</div><div class="prod-info"><div class="prod-name">Classic Aviator</div><div class="prod-price">PKR 2,499 <s>3,200</s></div></div></div>
+        <div class="prod-card"><div class="prod-img">👓</div><div class="prod-info"><div class="prod-name">Blue Light Block</div><div class="prod-price">PKR 3,199 <s>4,500</s></div></div></div>
+        <div class="prod-card"><div class="prod-img">🕶️</div><div class="prod-info"><div class="prod-name">Designer Wayfarer</div><div class="prod-price">PKR 4,299 <s>5,800</s></div></div></div>
+        <div class="prod-card"><div class="prod-img">👓</div><div class="prod-info"><div class="prod-name">Anti-Glare Pro</div><div class="prod-price">PKR 1,899 <s>2,500</s></div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="features">
+  <div style="text-align:center;">
+    <span class="sec-tag">// KEY FEATURES //</span>
+    <h2 class="sec-title">What Makes It Smart</h2>
+    <p style="color:var(--gr);font-size:16px;">Next.js + AI powering a full e-commerce experience</p>
+  </div>
+  <div class="features-grid">
+    <div class="feat-card">
+      <div class="feat-icon">👓</div>
+      <h3>Virtual Try-On</h3>
+      <p>AI-powered virtual try-on lets customers see exactly how glasses look on their face before buying — powered by computer vision and facial landmark detection.</p>
+      <span class="feat-tag">Computer Vision</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">🛒</div>
+      <h3>Smart Product Catalog</h3>
+      <p>Dynamic product catalog with intelligent filters, AI-powered search, prescription lens calculator, and smart recommendations based on face shape.</p>
+      <span class="feat-tag">AI Recommendations</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">⚙️</div>
+      <h3>Admin Dashboard</h3>
+      <p>Powerful admin panel for managing inventory, orders, customer data, promotions, and analytics. Role-based access control for staff members.</p>
+      <span class="feat-tag">Full CMS</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">💳</div>
+      <h3>Seamless Checkout</h3>
+      <p>Multi-step checkout with address management, payment gateway integration, order tracking, and automated email confirmations.</p>
+      <span class="feat-tag">Payment Ready</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📱</div>
+      <h3>Mobile-First Design</h3>
+      <p>Pixel-perfect responsive design that works flawlessly on all devices — optimized for mobile shopping with touch gestures and fast load times.</p>
+      <span class="feat-tag">Responsive</span>
+    </div>
+    <div class="feat-card">
+      <div class="feat-icon">📊</div>
+      <h3>Sales Analytics</h3>
+      <p>Built-in analytics tracking sales performance, customer behavior, inventory turnover, and revenue reports with beautiful visual dashboards.</p>
+      <span class="feat-tag">Real-time Data</span>
+    </div>
+  </div>
+</section>
+
+<section class="tech">
+  <span class="sec-tag">// TECH STACK //</span>
+  <h2 class="sec-title" style="margin-bottom:8px;">Built With</h2>
+  <div class="tech-grid">
+    <span class="tech-pill">Next.js 14</span><span class="tech-pill">TypeScript</span><span class="tech-pill">MongoDB</span>
+    <span class="tech-pill">Tailwind CSS</span><span class="tech-pill">NextAuth.js</span><span class="tech-pill">Zustand</span>
+    <span class="tech-pill">Prisma ORM</span><span class="tech-pill">Vercel Deploy</span><span class="tech-pill">Cloudinary</span>
+    <span class="tech-pill">Face API.js</span><span class="tech-pill">Stripe</span><span class="tech-pill">ESLint</span>
+  </div>
+</section>
+
+<section class="note-section">
+  <div class="note-box">
+    <p>🚀 <strong>This is a full-stack Next.js application</strong> with MongoDB backend. The store mockup above represents the actual UI. <strong>Contact Axon Systems</strong> to request a live hosted demo or to have a similar store built for your business.</p>
+  </div>
+</section>
+
+<footer>
+  <p>Built by <a href="../index.html">Axon Systems</a> &nbsp;·&nbsp; AI-Powered E-Commerce Solutions &nbsp;·&nbsp; <a href="mailto:info@axonsystems.com">info@axonsystems.com</a></p>
+</footer>
+</body>
+</html>

@@ -1,0 +1,168 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #fff;
+  font-family: Arial, sans-serif;
+  color: #000;
+}
+
+.page {
+  background: #fff;
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+/* ── HEADER ── */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.header .month,
+.header .year {
+  font-size: 80px;
+  font-weight: 900;
+  color: #000;
+  letter-spacing: 3px;
+  line-height: 1;
+}
+
+/* ── TABLE WRAPPER ── */
+.table-wrap {
+  border: 2px solid #000;
+  width: 100%;
+  margin-bottom: 28px;
+}
+
+/* ── COLUMN HEADER ROW ── */
+.col-header {
+  display: grid;
+  grid-template-columns: 40px 1fr 140px 110px 145px 28px;
+  background: #111;
+  color: #fff;
+  font-weight: 900;
+  font-size: 13px;
+  border-bottom: 2.5px solid #000;
+}
+
+.ch {
+  padding: 7px 8px;
+  border-right: 1px solid #555;
+  text-decoration: underline;
+}
+
+.ch:last-child {
+  border-right: none;
+}
+
+.ch-idx  { text-align: right; }
+.ch-name { text-align: left; }
+.ch-staff { text-align: center; }
+.ch-adv  { text-align: center; }
+.ch-net  { text-align: right; }
+.ch-box  { }
+
+/* ── DATA ROWS ── */
+.row {
+  display: grid;
+  grid-template-columns: 40px 1fr 140px 110px 145px 28px;
+  border-bottom: 1px solid #aaa;
+  align-items: center;
+  min-height: 30px;
+}
+
+.row:last-child {
+  border-bottom: none;
+}
+
+.cell {
+  padding: 5px 8px;
+  font-size: 13px;
+  color: #000;
+  border-right: 1px solid #ccc;
+  min-height: 28px;
+  display: flex;
+  align-items: center;
+}
+
+.cell:last-child {
+  border-right: none;
+}
+
+/* Index */
+.cell-idx {
+  justify-content: flex-end;
+  font-size: 12px;
+  color: #444;
+}
+
+/* Name */
+.cell-name {
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.3px;
+}
+
+/* Arrow column */
+.cell-arrow {
+  padding: 4px 6px;
+  justify-content: flex-start;
+}
+
+.arrow-svg {
+  width: 122px;
+  height: 16px;
+  display: block;
+}
+
+/* Number columns */
+.cell-num {
+  justify-content: flex-end;
+  font-size: 13px;
+}
+
+/* Bold net payable */
+.bold-net {
+  font-weight: 900;
+  font-size: 14px;
+}
+
+/* Checkbox column */
+.cell-box {
+  justify-content: center;
+}
+
+.cell-box::after {
+  content: '';
+  display: block;
+  width: 14px;
+  height: 14px;
+  border: 1.8px solid #000;
+}
+
+/* ── TOTAL ROW ── */
+.total-row {
+  border-top: 2.5px solid #000 !important;
+  border-bottom: none !important;
+}
+
+.total-num {
+  font-size: 14px !important;
+  font-weight: 900 !important;
+  border-top: 2px solid #000;
+}
+
+/* ── PRINT STYLES ── */
+@media print {
+  body { background: #fff; }
+  .page { padding: 10px; max-width: 100%; }
+  .header .month,
+  .header .year { font-size: 60px; }
+}

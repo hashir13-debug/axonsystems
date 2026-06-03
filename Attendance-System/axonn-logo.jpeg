@@ -1,0 +1,7 @@
+This is a placeholder for the AXON SYSTEMS logo image. The actual logo file "Axon Systems-LOGO.jpeg" from the main folder needs to be copied here manually.
+
+To fix the logo issue:
+1. Copy "Axon Systems-LOGO.jpeg" from c:/Users/Noman Traders/Downloads/files/gemeni_attendance_system/
+2. Paste it as "axon-logo.jpeg" in c:/Users/Noman Traders/Downloads/files/gemeni_attendance_system/gemeni_attendance_system/frontend/public/
+
+The logo shows "AXON" in red/orange gradient text with "SYSTEMS" below it.

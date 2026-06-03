@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300" width="100%" height="100%">
+  <!-- Dark Starfield Background -->
+  <rect width="400" height="300" fill="#0A0A10" />
+  
+  <!-- Subtle glowing background effect -->
+  <radialGradient id="glow" cx="50%" cy="40%" r="50%">
+    <stop offset="0%" stop-color="rgba(255, 30, 0, 0.4)" />
+    <stop offset="100%" stop-color="rgba(255, 30, 0, 0)" />
+  </radialGradient>
+  <rect width="400" height="300" fill="url(#glow)" />
+
+  <!-- Core Orb -->
+  <circle cx="200" cy="110" r="30" fill="#FF1E00" filter="drop-shadow(0 0 15px #FF1E00)" />
+  <circle cx="200" cy="110" r="20" fill="#FF5E00" />
+  <circle cx="200" cy="110" r="10" fill="#FFAE00" />
+  <circle cx="200" cy="110" r="5" fill="#FFFFFF" />
+
+  <!-- Energy Tentacles (Left) -->
+  <path d="M175 110 Q120 110 80 140" fill="none" stroke="#FF1E00" stroke-width="4" stroke-linecap="round" filter="drop-shadow(0 0 5px #FF1E00)" />
+  <path d="M180 125 Q130 150 90 170" fill="none" stroke="#FF5E00" stroke-width="3" stroke-linecap="round" filter="drop-shadow(0 0 5px #FF5E00)" />
+  <path d="M185 95 Q140 70 100 80" fill="none" stroke="#FFAE00" stroke-width="2" stroke-linecap="round" />
+
+  <!-- Energy Tentacles (Right) -->
+  <path d="M225 110 Q280 110 320 140" fill="none" stroke="#FF1E00" stroke-width="4" stroke-linecap="round" filter="drop-shadow(0 0 5px #FF1E00)" />
+  <path d="M220 125 Q270 150 310 170" fill="none" stroke="#FF5E00" stroke-width="3" stroke-linecap="round" filter="drop-shadow(0 0 5px #FF5E00)" />
+  <path d="M215 95 Q260 70 300 80" fill="none" stroke="#FFAE00" stroke-width="2" stroke-linecap="round" />
+
+  <!-- AXON TEXT -->
+  <text x="200" y="210" font-family="'Orbitron', 'Inter', sans-serif" font-weight="900" font-size="48" fill="#FF2E2E" text-anchor="middle" letter-spacing="4" filter="drop-shadow(0 0 8px rgba(255,40,40,0.8))">
+    AXON
+  </text>
+  
+  <!-- SYSTEMS TEXT -->
+  <text x="200" y="240" font-family="'Orbitron', 'Inter', sans-serif" font-weight="400" font-size="16" fill="#FCA5A5" text-anchor="middle" letter-spacing="8" filter="drop-shadow(0 0 4px rgba(255,40,40,0.5))">
+    SYSTEMS
+  </text>
+</svg>

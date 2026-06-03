@@ -1,118 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Gemeni Attendance System — S PRINT MAY 2026</title>
-  <link rel="stylesheet" href="style.css" />
-  <style>
-    .axon-nav{display:flex;align-items:center;justify-content:space-between;padding:12px 24px;background:#0a0c15;border-bottom:1px solid rgba(255,255,255,0.08);font-family:'Inter',Arial,sans-serif;position:sticky;top:0;z-index:999}
-    .axon-nav-brand{color:#fff;font-weight:800;font-size:16px;text-decoration:none;letter-spacing:1px}
-    .axon-nav-brand span{color:#00ff88}
-    .axon-back-btn{display:inline-flex;align-items:center;gap:6px;background:rgba(0,255,136,0.08);border:1px solid rgba(0,255,136,0.25);color:#00ff88;padding:7px 16px;border-radius:8px;text-decoration:none;font-size:13px;font-weight:600;transition:all .2s}
-    .axon-back-btn:hover{background:rgba(0,255,136,0.15)}
-    @media print{.axon-nav{display:none}}
-  </style>
-</head>
-<body>
-<nav class="axon-nav">
-  <a href="../index.html" class="axon-nav-brand">AXON <span>SYSTEMS</span></a>
-  <a href="../index.html" class="axon-back-btn">← Back to Portfolio</a>
-</nav>
-<div class="page">
-
-  <!-- HEADER -->
-  <div class="header">
-    <span class="month">MAY</span>
-    <span class="year">2026</span>
-  </div>
-
-  <!-- STAFF TABLE -->
-  <div class="table-wrap" id="staffTable"></div>
-
-  <!-- RIDERS TABLE -->
-  <div class="table-wrap" id="ridersTable"></div>
-
-</div>
-
-<script>
-const staffData = [
-  [1,"ARMAN",0,0.00],[2,"RIAZ",0,0.00],[3,"AJMAL",0,1400.00],[4,"AMAN",0,0.00],[5,"BASHEER",0,0.00],
-  [6,"ABDUL RAZZAK",0,800.00],[7,"IMRAN",0,1000.00],[8,"MOBIN",0,0.00],[9,"QADEER",0,0.00],[10,"AFZAL",0,0.00],
-  [11,"RAJA",0,0.00],[12,"CHOTO",0,0.00],[13,"FARDEEN",0,0.00],[14,"SHIRAZ",0,0.00],[15,"NAIMAT",0,900.00],
-  [16,"SHAHNAWAZ",0,0.00],[17,"SAEED",0,1300.00],[18,"YOUNS",0,700.00],[19,"ALI RAZA",0,0.00],[20,"SHIRAZ 2",0,0.00],
-  [21,"ARSALAN",0,0.00],[22,"WAHEED",0,0.00],[23,"SAJJAD 2",0,0.00],[24,"SHARIYAR",0,0.00],[25,"OSAMA",0,0.00],
-  [26,"SAQIB",0,0.00],[27,"DANIYAL",0,0.00],[28,"SHAHRUKH",0,2400.00],[29,"ABDULLAH ALOO",0,900.00],
-  [30,"ZAKIR (OLD)",0,1366.67],[31,"SAJID",0,0.00],[32,"ZAMEER (G)",0,0.00],[33,"MAJEED",0,0.00],
-  [34,"FARMAN",0,0.00],[35,"FARHAD",0,0.00],[36,"ALIM",0,0.00],[37,"NOMAN",0,0.00],[38,"MOSA",0,0.00],
-  [39,"NASEEB",0,0.00],[40,"AMJAD",0,0.00],[41,"JAWED",0,0.00],[42,"AYAZ",0,2166.67],[43,"HAIDER",0,0.00],
-  [44,"ALOO ISMAIL",0,1100.00],[45,"MUJAHID",0,0.00],[46,"SAJID ALI",0,0.00],[47,"ALI SIKANDAR",0,0.00],
-  [48,"SUDAIS",0,0.00],[49,"IFRAHIM",0,0.00],[50,"WAQAS",0,0.00],[51,"SAJJAD",0,0.00],[52,"HUSSAIN",0,800.00],
-  [53,"NAVEED JAMADAR",0,900.00],[54,"MUKHTIYAR JAMADAR",0,0.00],[55,"ABBAS",0,0.00],[56,"IMRAN NEW",0,0.00],
-  [57,"HAROON",0,0.00],[58,"ZEESHAN",0,0.00],[59,"ZAHID",0,0.00],[60,"QIRAN",0,0.00],[61,"AZAM",0,0.00],
-  [62,"",0,0.00],[63,"",0,0.00],[64,"",0,0.00],[65,"",0,0.00],[66,"",0,0.00],[67,"",0,0.00],[68,"",0,0.00],
-  [69,"",0,0.00],[70,"",0,0.00],[71,"",0,0.00],[72,"",0,0.00],[73,"",0,0.00],[74,"",0,0.00],[75,"",0,0.00],
-  [76,"",0,0.00],[77,"",0,0.00],[78,"",0,0.00],[79,"",0,0.00],[80,"",0,0.00]
-];
-
-const ridersData = [
-  [1,"M AHSAN",0,0.00],[2,"UMAIR",0,1100.00],[3,"ABID",0,1100.00],[4,"AHSAN",0,0.00],[5,"ZUHAIB",0,0.00],
-  [6,"HUSSAIN",0,0.00],[7,"M ZUBAIR",0,1100.00],[8,"HASEEB",0,0.00],[9,"JAWED",0,1300.00],[10,"IMRAN",0,0.00],
-  [11,"TAYYAB",0,1200.00],[12,"NADEEM",0,0.00],[13,"MUNAWAR",0,1400.00],[14,"SHAHRUKH NEW",0,1200.00],
-  [15,"SHAZIL",0,1200.00],[16,"KASHAN",0,0.00],[17,"AQEEL",0,1200.00],[18,"KAREEM",0,0.00],[19,"SPEEDY RIDER",0,0.00],
-  [20,"21",0,0.00],[21,"20",0,0.00],[22,"19",0,0.00],[23,"18",0,0.00],[24,"17",0,0.00],[25,"16",0,0.00],
-  [26,"15",0,0.00],[27,"14",0,0.00],[28,"13",0,0.00],[29,"12",0,0.00],[30,"11",0,0.00],[31,"10",0,0.00],
-  [32,"9",0,0.00],[33,"8",0,0.00],[34,"7",0,0.00],[35,"6",0,0.00],[36,"5",0,0.00],[37,"4",0,0.00],
-  [38,"3",0,0.00],[39,"2",0,0.00],[40,"1",0,0.00]
-];
-
-function arrowSVG() {
-  return `<svg class="arrow-svg" viewBox="0 0 118 16" xmlns="http://www.w3.org/2000/svg">
-    <line x1="2" y1="8" x2="100" y2="8" stroke="#4a6fa5" stroke-width="2.2"/>
-    <polygon points="100,3 115,8 100,13" fill="#4a6fa5"/>
-  </svg>`;
-}
-
-function buildTable(containerId, data, headerLabel, totalVal) {
-  const wrap = document.getElementById(containerId);
-
-  let html = `<div class="col-header">
-    <div class="ch ch-idx"></div>
-    <div class="ch ch-name">NAME</div>
-    <div class="ch ch-staff">${headerLabel}</div>
-    <div class="ch ch-adv">ADVANCE</div>
-    <div class="ch ch-net">NET PAYBLE</div>
-    <div class="ch ch-box"></div>
-  </div>`;
-
-  data.forEach(([idx, name, adv, net]) => {
-    const boldNet = net > 0 ? ' bold-net' : '';
-    const netStr = net.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
-    html += `<div class="row">
-      <div class="cell cell-idx">${idx}</div>
-      <div class="cell cell-name">${name}</div>
-      <div class="cell cell-arrow">${arrowSVG()}</div>
-      <div class="cell cell-num">${adv}</div>
-      <div class="cell cell-num${boldNet}">${netStr}</div>
-      <div class="cell cell-box"></div>
-    </div>`;
-  });
-
-  const totalStr = totalVal.toLocaleString('en-US', {minimumFractionDigits:2, maximumFractionDigits:2});
-  html += `<div class="row total-row">
-    <div class="cell cell-idx"></div>
-    <div class="cell cell-name"></div>
-    <div class="cell cell-arrow"></div>
-    <div class="cell cell-num"></div>
-    <div class="cell cell-num bold-net total-num">${totalStr}</div>
-    <div class="cell cell-box"></div>
-  </div>`;
-
-  wrap.innerHTML = html;
-}
-
-buildTable('staffTable', staffData, 'STAFF', 16933.34);
-buildTable('ridersTable', ridersData, "RIDER'S", 9600.00);
-</script>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Axon System</title>
+    <script type="module" crossorigin src="/assets/index-yWEBFwf5.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index-4rYMXq4B.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
 </html>

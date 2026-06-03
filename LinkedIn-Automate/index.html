@@ -1,223 +1,267 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="dark">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Axon LinkedIn Autopilot — AI-Powered LinkedIn Growth</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#050810;--card:#0c1220;--blue:#0077b5;--cyan:#00c8ff;--green:#00ff88;--w:#e8eef8;--gr:#6b7a99;--glow:rgba(0,120,181,0.35)}
-*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--w);overflow-x:hidden;-webkit-font-smoothing:antialiased}
-.bg-mesh{position:fixed;inset:0;z-index:0;pointer-events:none;
-  background:radial-gradient(ellipse 80% 60% at 20% 20%,rgba(0,120,181,0.18) 0%,transparent 60%),
-    radial-gradient(ellipse 60% 50% at 80% 80%,rgba(0,200,255,0.1) 0%,transparent 60%)}
-nav{position:fixed;top:0;left:0;right:0;z-index:100;height:64px;display:flex;align-items:center;justify-content:space-between;padding:0 5%;background:rgba(5,8,16,0.85);backdrop-filter:blur(20px);border-bottom:1px solid rgba(255,255,255,0.07)}
-.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--w);font-family:'Space Grotesk',sans-serif;font-weight:800;font-size:18px}
-.nav-logo span{color:var(--cyan)}
-.back-btn{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);color:var(--w);padding:9px 20px;border-radius:10px;text-decoration:none;font-size:14px;font-weight:600;transition:all .3s}
-.back-btn:hover{background:rgba(0,120,181,0.15);border-color:var(--blue)}
-
-.hero{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:120px 5% 80px;position:relative;z-index:1}
-.li-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(0,119,181,0.15);border:1px solid rgba(0,119,181,0.4);color:var(--cyan);padding:8px 20px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;margin-bottom:28px}
-.badge-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);animation:pulse 2s infinite}
-@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(2.2);opacity:.3}}
-.hero h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(36px,7vw,80px);font-weight:800;line-height:1.05;letter-spacing:-2px;margin-bottom:24px}
-.grad{background:linear-gradient(135deg,var(--blue) 0%,var(--cyan) 60%,var(--green) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
-.hero p{font-size:clamp(15px,2vw,19px);color:var(--gr);line-height:1.8;max-width:580px;margin:0 auto 40px}
-.cta-group{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.btn-primary{display:inline-flex;align-items:center;gap:8px;background:linear-gradient(135deg,var(--blue),var(--cyan));color:#fff;padding:15px 36px;border-radius:12px;font-size:15px;font-weight:800;text-decoration:none;transition:all .3s;box-shadow:0 0 50px rgba(0,119,181,0.4)}
-.btn-primary:hover{transform:translateY(-4px);box-shadow:0 0 80px rgba(0,119,181,0.6)}
-.btn-ghost{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.05);color:var(--w);padding:15px 36px;border-radius:12px;font-size:15px;font-weight:600;text-decoration:none;border:1px solid rgba(255,255,255,.12);transition:all .3s}
-.btn-ghost:hover{border-color:rgba(0,200,255,.4);transform:translateY(-4px)}
-
-/* Dashboard mockup */
-.dashboard-wrap{margin:60px auto 0;max-width:900px;background:var(--card);border:1px solid rgba(255,255,255,0.08);border-radius:20px;overflow:hidden;box-shadow:0 40px 120px rgba(0,0,0,0.6),0 0 100px rgba(0,119,181,0.1)}
-.db-header{display:flex;align-items:center;gap:8px;padding:14px 20px;background:rgba(0,0,0,0.3);border-bottom:1px solid rgba(255,255,255,0.06)}
-.db-dot{width:12px;height:12px;border-radius:50%}
-.db-dot.r{background:#ff5f57}.db-dot.y{background:#febc2e}.db-dot.g{background:#28c840}
-.db-title{margin-left:8px;font-size:13px;color:var(--gr);font-family:'Space Grotesk',sans-serif;font-weight:600}
-.db-body{display:grid;grid-template-columns:200px 1fr;min-height:420px}
-.db-sidebar{padding:20px 0;border-right:1px solid rgba(255,255,255,0.06);background:rgba(0,0,0,0.2)}
-.db-nav-item{display:flex;align-items:center;gap:10px;padding:10px 20px;font-size:13px;color:var(--gr);cursor:pointer;transition:all .2s}
-.db-nav-item.active{color:var(--cyan);background:rgba(0,200,255,0.06);border-left:2px solid var(--cyan)}
-.db-nav-item:hover:not(.active){color:var(--w);background:rgba(255,255,255,0.03)}
-.db-nav-icon{font-size:16px;width:20px}
-.db-main{padding:24px}
-.db-stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:24px}
-.db-stat{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:16px}
-.db-stat-val{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:800;color:var(--cyan);margin-bottom:4px}
-.db-stat-val.green{color:var(--green)}.db-stat-val.blue{color:#60a5fa}
-.db-stat-label{font-size:11px;color:var(--gr);text-transform:uppercase;letter-spacing:1px}
-.db-chart{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:16px;margin-bottom:16px;height:120px;display:flex;align-items:flex-end;gap:6px}
-.bar{flex:1;background:linear-gradient(to top,var(--blue),var(--cyan));border-radius:4px 4px 0 0;opacity:0.8;animation:barUp .8s ease both}
-@keyframes barUp{from{height:0}to{height:var(--h)}}
-.db-table{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:12px;overflow:hidden}
-.db-table-row{display:flex;padding:10px 16px;border-bottom:1px solid rgba(255,255,255,0.04);font-size:12px;align-items:center;gap:12px}
-.db-table-row.hd{color:var(--gr);text-transform:uppercase;letter-spacing:1px;font-size:10px}
-.db-name{flex:1;font-weight:600}.db-status{padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700}
-.db-status.sent{background:rgba(0,200,255,0.12);color:var(--cyan)}.db-status.accepted{background:rgba(0,255,136,0.12);color:var(--green)}.db-status.pending{background:rgba(255,200,0,0.1);color:#ffc800}
-
-/* Features */
-.features{padding:100px 5%;position:relative;z-index:1}
-.sec-tag{font-size:11px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);margin-bottom:12px;display:block}
-.sec-title{font-family:'Space Grotesk',sans-serif;font-size:clamp(28px,5vw,52px);font-weight:800;margin-bottom:16px;line-height:1.1}
-.sec-sub{color:var(--gr);font-size:16px;margin-bottom:60px}
-.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1100px;margin:0 auto}
-.feat-card{background:var(--card);border:1px solid rgba(255,255,255,0.07);border-radius:16px;padding:28px;transition:all .3s}
-.feat-card:hover{border-color:rgba(0,200,255,0.3);transform:translateY(-6px);box-shadow:0 20px 60px rgba(0,0,0,0.4)}
-.feat-icon{font-size:32px;margin-bottom:16px}
-.feat-card h3{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;margin-bottom:10px}
-.feat-card p{color:var(--gr);font-size:14px;line-height:1.7}
-.feat-tag{display:inline-block;background:rgba(0,200,255,0.08);color:var(--cyan);border:1px solid rgba(0,200,255,0.2);padding:3px 10px;border-radius:100px;font-size:10px;font-weight:700;margin-top:12px;letter-spacing:.5px;text-transform:uppercase}
-
-/* Tech stack */
-.tech{padding:60px 5% 100px;position:relative;z-index:1;text-align:center}
-.tech-grid{display:flex;flex-wrap:wrap;gap:12px;justify-content:center;max-width:800px;margin:0 auto}
-.tech-pill{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);padding:8px 18px;border-radius:100px;font-size:13px;font-weight:600;color:var(--w);transition:all .2s}
-.tech-pill:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,200,255,0.08)}
-
-/* Backend note */
-.note-section{padding:40px 5% 80px;position:relative;z-index:1;text-align:center}
-.note-box{display:inline-block;background:rgba(0,119,181,0.1);border:1px solid rgba(0,119,181,0.3);border-radius:16px;padding:24px 40px;max-width:600px}
-.note-box p{color:var(--gr);font-size:15px;line-height:1.7}
-.note-box strong{color:var(--cyan)}
-
-footer{text-align:center;padding:40px 5%;border-top:1px solid rgba(255,255,255,0.07);color:var(--gr);font-size:13px;position:relative;z-index:1}
-footer a{color:var(--cyan);text-decoration:none}
-
-@media(max-width:700px){
-  .db-body{grid-template-columns:1fr}
-  .db-sidebar{display:none}
-  .db-stat-row{grid-template-columns:1fr 1fr}
-  .hero h1{letter-spacing:-1px}
-}
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dashboard — Axon LinkedIn Automate</title>
+  <link rel="stylesheet" href="./static/css/theme.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    .back-bar{position:fixed;top:0;left:0;right:0;z-index:9999;height:38px;background:#C0392B;display:flex;align-items:center;justify-content:space-between;padding:0 20px;font-size:12px;font-weight:700;letter-spacing:.5px}
+    .back-bar span{color:rgba(255,255,255,0.85)}
+    .back-bar a{color:#fff;text-decoration:none;display:flex;align-items:center;gap:6px;background:rgba(0,0,0,0.25);padding:4px 14px;border-radius:6px;transition:.2s}
+    .back-bar a:hover{background:rgba(0,0,0,0.45)}
+    body{padding-top:38px}
+    .demo-badge{position:fixed;bottom:20px;right:20px;z-index:9999;background:#C0392B;color:#fff;padding:8px 16px;border-radius:100px;font-size:11px;font-weight:700;letter-spacing:1px;box-shadow:0 4px 20px rgba(192,57,43,0.5)}
+    /* Card styles from theme */
+    .card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:20px}
+    .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px}
+    .card-title{font-size:14px;font-weight:700;color:var(--text-1)}
+    .card-sub{font-size:11px;color:var(--text-3);margin-top:2px}
+    .stat-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);padding:20px;text-align:center}
+    .stat-value{font-size:28px;font-weight:800;color:var(--accent);margin-bottom:4px}
+    .stat-label{font-size:11px;color:var(--text-3);text-transform:uppercase;letter-spacing:1px}
+    .grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+    .chart-wrap{position:relative}
+    .data-table{width:100%;border-collapse:collapse}
+    .data-table th{padding:10px 14px;text-align:left;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--text-3);border-bottom:1px solid var(--border)}
+    .data-table td{padding:12px 14px;border-bottom:1px solid var(--border);font-size:13px;color:var(--text-2)}
+    .data-table tr:hover td{background:var(--bg-hover);cursor:pointer}
+    .badge{display:inline-block;padding:2px 8px;border-radius:100px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.5px}
+    .badge-published{background:rgba(39,174,96,.15);color:#27AE60}
+    .badge-scheduled{background:rgba(41,128,185,.15);color:#2980B9}
+    .badge-failed{background:rgba(192,57,43,.15);color:#C0392B}
+    .badge-draft{background:rgba(136,136,136,.15);color:#888}
+    .btn{display:inline-flex;align-items:center;gap:6px;padding:8px 16px;border-radius:var(--radius-sm);font-size:13px;font-weight:600;text-decoration:none;border:none;cursor:pointer;transition:all var(--transition)}
+    .btn-primary{background:var(--accent);color:#fff}.btn-primary:hover{background:var(--accent-hover)}
+    .btn-sm{padding:5px 12px;font-size:12px}
+    .btn-ghost{background:transparent;border:1px solid var(--border);color:var(--text-2)}.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+    .quick-idea-card{background:var(--bg-input);border:1px solid var(--border);border-radius:var(--radius);padding:14px;transition:all var(--transition);cursor:pointer}
+    .quick-idea-card:hover{border-color:var(--accent);background:var(--accent-dim)}
+    .idea-topic{font-size:13px;font-weight:600;color:var(--text-1);margin-bottom:4px}
+    .idea-angle{font-size:11px;color:var(--text-3)}
+    .page-content{padding:24px;overflow-y:auto;flex:1}
+    .page-header{margin-bottom:24px}
+    .page-title{font-size:22px;font-weight:800;color:var(--text-1)}
+    .page-sub{font-size:13px;color:var(--text-3);margin-top:4px}
+    .mb-4{margin-bottom:16px}
+    .topbar-btn{background:transparent;border:1px solid var(--border);color:var(--text-2);padding:6px 10px;border-radius:var(--radius-sm);cursor:pointer;font-size:13px;display:flex;align-items:center;gap:6px;transition:all var(--transition)}
+    .topbar-btn:hover{border-color:var(--accent);color:var(--accent)}
+    @media(max-width:800px){.grid-4{grid-template-columns:repeat(2,1fr)}.sidebar{display:none}.two-col{grid-template-columns:1fr!important}}
+  </style>
 </head>
 <body>
-<div class="bg-mesh"></div>
 
-<nav>
-  <a href="../index.html" class="nav-logo">AXON <span>SYSTEMS</span></a>
-  <a href="../index.html" class="back-btn">← Back to Portfolio</a>
-</nav>
+<div class="back-bar">
+  <span>📋 DEMO MODE — Axon LinkedIn Automate</span>
+  <a href="../index.html">← Back to Portfolio</a>
+</div>
 
-<section class="hero">
-  <div class="li-badge"><div class="badge-dot"></div>AI-POWERED LINKEDIN AUTOMATION</div>
-  <h1>Axon <span class="grad">LinkedIn</span><br>Autopilot</h1>
-  <p>Autonomous AI agent that handles your entire LinkedIn presence — from smart connection requests to AI-written posts, analytics, and scheduled outreach. 24/7, hands-free.</p>
-  <div class="cta-group">
-    <a href="mailto:info@axonsystems.com?subject=LinkedIn Autopilot Demo Request" class="btn-primary">🚀 Request Live Demo</a>
-    <a href="../index.html#portfolio" class="btn-ghost">← Other Projects</a>
-  </div>
+<div class="demo-badge">LIVE DEMO</div>
 
-  <!-- Dashboard Mockup -->
-  <div class="dashboard-wrap">
-    <div class="db-header">
-      <div class="db-dot r"></div><div class="db-dot y"></div><div class="db-dot g"></div>
-      <span class="db-title">Axon LinkedIn Autopilot — Dashboard v2.0</span>
-    </div>
-    <div class="db-body">
-      <div class="db-sidebar">
-        <div class="db-nav-item active"><span class="db-nav-icon">📊</span>Dashboard</div>
-        <div class="db-nav-item"><span class="db-nav-icon">👥</span>Auto Connect</div>
-        <div class="db-nav-item"><span class="db-nav-icon">✍️</span>AI Compose</div>
-        <div class="db-nav-item"><span class="db-nav-icon">📅</span>Schedule</div>
-        <div class="db-nav-item"><span class="db-nav-icon">📈</span>Analytics</div>
-        <div class="db-nav-item"><span class="db-nav-icon">💡</span>AI Ideas</div>
-        <div class="db-nav-item"><span class="db-nav-icon">⚙️</span>Settings</div>
+<div class="app-shell">
+
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <a href="#" class="sidebar-logo">
+      <img src="./static/images/axon_logo.png" alt="Axon Systems" />
+      <div class="sidebar-logo-text">
+        <div class="sidebar-logo-name">Axon Systems</div>
+        <div class="sidebar-logo-tagline">LinkedIn Automate</div>
       </div>
-      <div class="db-main">
-        <div class="db-stat-row">
-          <div class="db-stat"><div class="db-stat-val">1,247</div><div class="db-stat-label">Connections Sent</div></div>
-          <div class="db-stat"><div class="db-stat-val green">342</div><div class="db-stat-label">Accepted</div></div>
-          <div class="db-stat"><div class="db-stat-val blue">27.4%</div><div class="db-stat-label">Accept Rate</div></div>
-        </div>
-        <div class="db-chart">
-          <div class="bar" style="--h:40%"></div><div class="bar" style="--h:65%"></div><div class="bar" style="--h:45%"></div>
-          <div class="bar" style="--h:80%"></div><div class="bar" style="--h:55%"></div><div class="bar" style="--h:90%"></div>
-          <div class="bar" style="--h:70%"></div><div class="bar" style="--h:100%"></div><div class="bar" style="--h:85%"></div>
-          <div class="bar" style="--h:95%"></div><div class="bar" style="--h:75%"></div><div class="bar" style="--h:88%"></div>
-        </div>
-        <div class="db-table">
-          <div class="db-table-row hd"><span class="db-name">Name</span><span>Title</span><span>Status</span></div>
-          <div class="db-table-row"><span class="db-name">Sarah Mitchell</span><span style="color:var(--gr);font-size:11px">CTO at TechCorp</span><span class="db-status accepted">Accepted</span></div>
-          <div class="db-table-row"><span class="db-name">John Peterson</span><span style="color:var(--gr);font-size:11px">CEO at StartupXYZ</span><span class="db-status sent">Sent</span></div>
-          <div class="db-table-row"><span class="db-name">Amara Diallo</span><span style="color:var(--gr);font-size:11px">Founder at VentureAI</span><span class="db-status pending">Pending</span></div>
-        </div>
+    </a>
+
+    <div class="sidebar-section-label">Main</div>
+    <a href="index.html" class="nav-link active"><i class="ti ti-layout-dashboard"></i> Dashboard</a>
+    <a href="compose.html" class="nav-link"><i class="ti ti-edit"></i> Compose</a>
+    <a href="#" class="nav-link"><i class="ti ti-calendar-event"></i> Schedule</a>
+    <a href="#" class="nav-link"><i class="ti ti-history"></i> History</a>
+    <a href="#" class="nav-link"><i class="ti ti-chart-bar"></i> Analytics</a>
+    <a href="#" class="nav-link"><i class="ti ti-bulb"></i> Content Ideas</a>
+    <a href="#" class="nav-link">
+      <i class="ti ti-users-plus"></i> Auto-Connect
+      <span style="font-size:9px;background:#C0392B;color:#fff;padding:1px 5px;border-radius:8px;margin-left:auto;">AI</span>
+    </a>
+
+    <div class="sidebar-section-label">Manage</div>
+    <a href="#" class="nav-link"><i class="ti ti-users"></i> Accounts</a>
+    <a href="#" class="nav-link"><i class="ti ti-template"></i> Templates</a>
+    <a href="#" class="nav-link"><i class="ti ti-settings"></i> Settings</a>
+
+    <div class="sidebar-footer">
+      <div class="linkedin-status">
+        <span class="dot dot-green"></span>
+        <span>hashir13 — connected</span>
       </div>
     </div>
-  </div>
-</section>
+  </aside>
 
-<section class="features">
-  <div style="text-align:center;margin-bottom:60px;">
-    <span class="sec-tag">// CORE CAPABILITIES //</span>
-    <h2 class="sec-title">What Axon Autopilot Does</h2>
-    <p class="sec-sub">Complete LinkedIn automation powered by GPT-4 AI</p>
-  </div>
-  <div class="features-grid">
-    <div class="feat-card">
-      <div class="feat-icon">🤖</div>
-      <h3>Smart Auto-Connect</h3>
-      <p>AI identifies your ideal connections by role, industry, and location. Sends personalized invitations at safe, human-like rates to maximize acceptance.</p>
-      <span class="feat-tag">GPT-4 Powered</span>
+  <!-- Main area -->
+  <div class="main-area">
+    <!-- Topbar -->
+    <div class="topbar">
+      <div class="topbar-title">Dashboard</div>
+      <div class="topbar-right">
+        <button class="topbar-btn"><i class="ti ti-bell"></i></button>
+        <button class="topbar-btn" onclick="toggleTheme()"><i class="ti ti-sun" id="themeIcon"></i></button>
+        <button class="topbar-btn"><i class="ti ti-user-circle"></i> Hashir</button>
+      </div>
     </div>
-    <div class="feat-card">
-      <div class="feat-icon">✍️</div>
-      <h3>AI Post Generator</h3>
-      <p>Generates engaging, professional LinkedIn posts on trending topics in your niche. Schedule a week of content in minutes with one-click publishing.</p>
-      <span class="feat-tag">Auto-Schedule</span>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon">📊</div>
-      <h3>Analytics Dashboard</h3>
-      <p>Real-time insights on connection acceptance rates, post engagement, profile views, and campaign performance — all in one clean dashboard.</p>
-      <span class="feat-tag">Real-time</span>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon">📅</div>
-      <h3>Campaign Scheduler</h3>
-      <p>Set up multi-day outreach campaigns with daily limits, time zone awareness, and automatic follow-up sequences for warm leads.</p>
-      <span class="feat-tag">Multi-campaign</span>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon">💡</div>
-      <h3>AI Content Ideas</h3>
-      <p>Never run out of ideas — the AI generates topic suggestions based on your industry trends, competitor analysis, and engagement patterns.</p>
-      <span class="feat-tag">Trend Analysis</span>
-    </div>
-    <div class="feat-card">
-      <div class="feat-icon">🔒</div>
-      <h3>Safe & Compliant</h3>
-      <p>Built-in rate limiting, human-like delays, and LinkedIn-compliant behavior to keep your account safe. Supports multiple LinkedIn accounts.</p>
-      <span class="feat-tag">Account Safe</span>
-    </div>
-  </div>
-</section>
 
-<section class="tech">
-  <span class="sec-tag">// TECH STACK //</span>
-  <h2 class="sec-title" style="margin-bottom:12px;">Built With</h2>
-  <p style="color:var(--gr);margin-bottom:32px;">Enterprise-grade technologies powering the automation</p>
-  <div class="tech-grid">
-    <span class="tech-pill">Python</span><span class="tech-pill">Flask</span><span class="tech-pill">GPT-4</span>
-    <span class="tech-pill">LinkedIn API</span><span class="tech-pill">Selenium</span><span class="tech-pill">SQLAlchemy</span>
-    <span class="tech-pill">APScheduler</span><span class="tech-pill">Docker</span><span class="tech-pill">Railway</span>
-    <span class="tech-pill">Bootstrap</span><span class="tech-pill">Chart.js</span><span class="tech-pill">JWT Auth</span>
-  </div>
-</section>
+    <!-- Content -->
+    <div class="page-content">
+      <div class="page-header">
+        <div class="page-title">Good afternoon, Hashir 👋</div>
+        <div class="page-sub">Here's what's happening with your LinkedIn presence</div>
+      </div>
 
-<section class="note-section">
-  <div class="note-box">
-    <p>🚀 <strong>This is a full-stack web application</strong> requiring a server to run. The dashboard mockup above represents the actual UI. <strong>Contact Axon Systems</strong> to request a live hosted demo or to deploy this for your business.</p>
-  </div>
-</section>
+      <!-- Stats -->
+      <div class="grid-4 mb-4">
+        <div class="stat-card"><div class="stat-value" id="postsToday">3</div><div class="stat-label">Posts Today</div></div>
+        <div class="stat-card"><div class="stat-value">47</div><div class="stat-label">Total Posts</div></div>
+        <div class="stat-card"><div class="stat-value" style="color:#27AE60">91%</div><div class="stat-label">Success Rate</div></div>
+        <div class="stat-card"><div class="stat-value">12 🔥</div><div class="stat-label">Day Streak</div></div>
+      </div>
 
-<footer>
-  <p>Built by <a href="../index.html">Axon Systems</a> &nbsp;·&nbsp; AI-Powered Autonomous Agents &nbsp;·&nbsp; <a href="mailto:info@axonsystems.com">info@axonsystems.com</a></p>
-</footer>
+      <!-- Main content grid -->
+      <div class="two-col" style="display:grid;grid-template-columns:1fr 300px;gap:20px;align-items:start;">
+
+        <!-- Left -->
+        <div style="display:flex;flex-direction:column;gap:20px;">
+
+          <!-- Activity chart -->
+          <div class="card">
+            <div class="card-header">
+              <div>
+                <div class="card-title">Posting Activity</div>
+                <div class="card-sub">Last 30 days</div>
+              </div>
+              <a href="compose.html" class="btn btn-primary btn-sm"><i class="ti ti-plus"></i> New Post</a>
+            </div>
+            <div class="chart-wrap" style="height:160px;">
+              <canvas id="activityChart"></canvas>
+            </div>
+          </div>
+
+          <!-- Recent posts -->
+          <div class="card" style="padding:0;">
+            <div class="card-header" style="padding:18px 20px 0;">
+              <div class="card-title">Recent Posts</div>
+              <a href="#" style="font-size:12px;color:var(--accent);text-decoration:none;">View all →</a>
+            </div>
+            <div style="overflow-x:auto;">
+              <table class="data-table">
+                <thead><tr><th>Date</th><th>Topic</th><th>Style</th><th>Status</th><th>Preview</th></tr></thead>
+                <tbody>
+                  <tr><td>Jun 03</td><td>AI in Business</td><td>Thought Leadership</td><td><span class="badge badge-published">Published</span></td><td class="truncate" style="max-width:200px;">AI is no longer a future concept. Here's how businesses are…</td></tr>
+                  <tr><td>Jun 02</td><td>LinkedIn Growth</td><td>Tips & Tricks</td><td><span class="badge badge-published">Published</span></td><td class="truncate" style="max-width:200px;">5 LinkedIn strategies that tripled my connection rate in 30 days…</td></tr>
+                  <tr><td>Jun 01</td><td>Pakistan Tech Scene</td><td>Industry News</td><td><span class="badge badge-published">Published</span></td><td class="truncate" style="max-width:200px;">The Pakistani startup ecosystem is booming. Here's why 2026 is…</td></tr>
+                  <tr><td>May 31</td><td>Automation Tools</td><td>How-to Guide</td><td><span class="badge badge-scheduled">Scheduled</span></td><td class="truncate" style="max-width:200px;">How I automated 80% of my LinkedIn workflow using AI agents…</td></tr>
+                  <tr><td>May 30</td><td>Product Launch</td><td>Announcement</td><td><span class="badge badge-draft">Draft</span></td><td class="truncate" style="max-width:200px;">Excited to announce our newest AI automation tool for…</td></tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div style="display:flex;flex-direction:column;gap:16px;">
+
+          <!-- Quick compose -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Quick Compose</div>
+            </div>
+            <a href="compose.html" class="btn btn-primary" style="width:100%;justify-content:center;margin-bottom:10px;"><i class="ti ti-wand"></i> Generate AI Post</a>
+            <button class="btn btn-ghost" style="width:100%;justify-content:center;"><i class="ti ti-clock"></i> Schedule Post</button>
+          </div>
+
+          <!-- Today's scheduled -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">Today's Schedule</div>
+              <span style="font-size:11px;color:var(--text-3)">Jun 3, 2026</span>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:10px;">
+              <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg-input);border-radius:var(--radius-sm);border:1px solid var(--border);">
+                <span style="font-size:11px;color:var(--text-3);white-space:nowrap;">09:00</span>
+                <span style="font-size:12px;color:var(--text-1);flex:1;">AI Automation Trends 2026</span>
+                <span class="badge badge-published">Done</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg-input);border-radius:var(--radius-sm);border:1px solid var(--border);">
+                <span style="font-size:11px;color:var(--text-3);white-space:nowrap;">14:00</span>
+                <span style="font-size:12px;color:var(--text-1);flex:1;">Networking Best Practices</span>
+                <span class="badge badge-scheduled">Pending</span>
+              </div>
+              <div style="display:flex;align-items:center;gap:10px;padding:10px;background:var(--bg-input);border-radius:var(--radius-sm);border:1px solid rgba(192,57,43,0.3);background:var(--accent-dim);">
+                <span style="font-size:11px;color:var(--text-3);white-space:nowrap;">18:00</span>
+                <span style="font-size:12px;color:var(--text-1);flex:1;">Evening Engagement Post</span>
+                <span class="badge badge-draft">Draft</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Content ideas -->
+          <div class="card">
+            <div class="card-header">
+              <div class="card-title">AI Content Ideas</div>
+              <a href="#" style="font-size:11px;color:var(--accent);text-decoration:none;">Refresh</a>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px;">
+              <div class="quick-idea-card"><div class="idea-topic">The Future of Remote Work in Pakistan</div><div class="idea-angle">Thought leadership · Tech industry</div></div>
+              <div class="quick-idea-card"><div class="idea-topic">How AI Saved Our Team 20 Hours/Week</div><div class="idea-angle">Case study · Automation</div></div>
+              <div class="quick-idea-card"><div class="idea-topic">5 Tools Every Developer Should Know</div><div class="idea-angle">Tips · Developer audience</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Theme toggle
+function toggleTheme() {
+  const html = document.documentElement;
+  const cur = html.getAttribute('data-theme') || 'dark';
+  const next = cur === 'dark' ? 'light' : 'dark';
+  html.setAttribute('data-theme', next);
+  document.getElementById('themeIcon').className = next === 'dark' ? 'ti ti-sun' : 'ti ti-moon';
+  localStorage.setItem('axon-theme', next);
+}
+(function() {
+  const t = localStorage.getItem('axon-theme') || 'dark';
+  document.documentElement.setAttribute('data-theme', t);
+  const icon = document.getElementById('themeIcon');
+  if(icon) icon.className = t === 'dark' ? 'ti ti-sun' : 'ti ti-moon';
+})();
+
+// Activity chart
+const ctx = document.getElementById('activityChart').getContext('2d');
+const labels = Array.from({length:30},(_,i)=>{const d=new Date();d.setDate(d.getDate()-29+i);return d.toLocaleDateString('en',{month:'short',day:'numeric'})});
+const data = [1,0,2,1,0,1,3,2,1,0,2,1,1,2,0,1,2,3,1,0,2,1,2,1,3,2,1,2,3,3];
+new Chart(ctx, {
+  type:'bar',
+  data:{
+    labels,
+    datasets:[{
+      data,
+      backgroundColor:'rgba(192,57,43,0.6)',
+      borderColor:'rgba(192,57,43,0.9)',
+      borderWidth:1,
+      borderRadius:3
+    }]
+  },
+  options:{
+    responsive:true,maintainAspectRatio:false,
+    plugins:{legend:{display:false},tooltip:{callbacks:{label:c=>c.raw+' post'+(c.raw!==1?'s':'')}}},
+    scales:{
+      x:{display:false,grid:{display:false}},
+      y:{display:true,beginAtZero:true,max:4,ticks:{stepSize:1,color:'#555',font:{size:10}},grid:{color:'rgba(255,255,255,0.04)'}}
+    }
+  }
+});
+</script>
 </body>
 </html>
